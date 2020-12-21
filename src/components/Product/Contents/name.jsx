@@ -5,7 +5,7 @@ class Name extends Component {
     render() {
         return (
             <div>
-                name: {this.props.name}
+                ame: {this.props.name}
             </div>
         )
     }
