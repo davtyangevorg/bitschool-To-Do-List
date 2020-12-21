@@ -6,7 +6,7 @@ import Product from '../Product/product.jsx'
 const Section = () => {
     return (
         <section className='section'>
-            <Product name='Phone' price='500$' description='This phone was manufactured in China' />
+            <Product name='Phone' price='15$' description='This phone was manufactured in China' />
         </section>
     )
 }

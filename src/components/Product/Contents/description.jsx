@@ -4,8 +4,8 @@ class Description extends Component {
 
     render() {
         return (
-            <div>
-                description: {this.props.description}
+            <div style={{ marginBottom: '10px' }}>
+                {this.props.description}
             </div>
         )
     }

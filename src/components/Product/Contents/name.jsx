@@ -4,8 +4,8 @@ class Name extends Component {
 
     render() {
         return (
-            <div>
-                ame: {this.props.name}
+            <div style={{ marginBottom: '10px' }}>
+                {this.props.name}
             </div>
         )
     }
