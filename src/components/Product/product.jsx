@@ -5,9 +5,6 @@ import Price from './Contents/price.jsx'
 import Description from './Contents/description.jsx'
 
 class Product extends Component {
-    constructor(props) {
-        super()
-    }
 
     render() {
         return (
