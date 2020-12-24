@@ -1,7 +1,6 @@
 .product{
     background-color: white;
-    max-width: 500px;
-    margin: auto;
+    margin-bottom: 40px;
     padding: 10px;
     border-radius: 10px;
 }

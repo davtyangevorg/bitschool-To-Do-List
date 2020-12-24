@@ -1,12 +1,12 @@
 import React from 'react'
 import './section.css'
 
-import Product from '../Product/product.jsx'
+import ToDoList from '../ToDoList/toDoList.jsx'
 
 const Section = () => {
     return (
         <section className='section'>
-            <Product name='Phone' price='15$' description='This phone was manufactured in China' />
+            <ToDoList />
         </section>
     )
 }
