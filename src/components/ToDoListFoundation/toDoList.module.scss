@@ -1,0 +1,64 @@
+@import '../../styles/mixins';
+@import '../../styles/variables';
+
+.form{
+    text-align: center;
+    margin-bottom: 50px;
+}
+.form>input{
+    margin-right: 10px;
+    padding: 5px;
+    outline: none;
+}
+.form>button{
+    cursor: pointer;
+    padding: 5px;
+}
+.tasks{
+    display: flex;
+    flex-wrap: wrap;
+    .notTasks{
+        padding-top: 200px;
+        text-align: center;
+        margin: auto;
+        h3{
+            margin-bottom: 15px;
+        }
+        p{
+            @include standartMuchFadedText;
+            font-size:15px;
+            margin-bottom: 20px;
+        }
+        button{
+            text-align: center;
+            @include buttonFunction($bColor:$greenButtonBackgroundColor,$color:white,$borderRadius:50%);
+            height: 35px;
+            width: 35px;
+            padding-top: 3px;
+            transition: all 0.3s;
+            &:hover{
+                background-color: $greenButtonHoverBackgroundColor;
+            }
+        }
+    }
+    .task{
+        padding: 15px 20px;
+        width: 400px;
+        max-width: 80%;
+        position: relative;
+        background-color: white;
+        box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.07);
+        border-radius: 5px;
+        margin-bottom: 20px;
+        margin-right: 15px;
+        h4{
+            margin-bottom: 5px;
+        }
+        div{
+            cursor: pointer;
+            position: absolute;
+            right: 10px;
+            top: 10px;
+        }
+    }
+}

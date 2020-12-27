@@ -1,16 +1,15 @@
 import React from 'react'
 import './App.css';
 
-import Header from './components/Header/header.jsx'
-import Section from './components/Section/section.jsx'
-import Footer from './components/Footer/footer.jsx'
+import LeftSidbar from './components/LeftSidbar/leftSidbar.jsx'
+import Home from './components/Home/home.jsx'
+
 
 function App() {
   return (
     <div className="App">
-      <Header />
-      <Section />
-      <Footer />
+      <LeftSidbar />
+      <Home />
     </div>
   );
 }
