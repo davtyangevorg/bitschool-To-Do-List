@@ -1,0 +1,23 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+.footer{
+    border-top: 1px solid $fadedLineColor;
+    background-color: white;
+    height: 5vh;
+    .textDiv{
+        padding-top: 3px;
+        display: flex;
+        flex-direction: column;
+        text-align: right;
+        letter-spacing: 0.3px;
+        p{
+            @include standartText;
+            font-size:13px
+        }
+        h6{
+            margin-top: -18px;
+            @include standartFadedText;
+            font-size:13px
+        }
+    }
+}

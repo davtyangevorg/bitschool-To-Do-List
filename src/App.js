@@ -1,5 +1,5 @@
 import React from 'react'
-import './App.css';
+import './App.css'
 
 import LeftSidbar from './components/LeftSidbar/leftSidbar.jsx'
 import Home from './components/Home/home.jsx'
@@ -14,4 +14,4 @@ function App() {
   );
 }
 
-export default App;
+export default App
