@@ -3,18 +3,47 @@
 
 .tasksStylesBtns{
     margin-bottom: 20px;
-    button{
-        @include buttonFunction($border:1px solid $muchFadedTextColor);
-        padding: 6px 20px;
-        @include standartFadedText
+    display: flex;
+    .btnDiv{
+        cursor: pointer;
+        position: relative;
+        svg{
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            left: 10px;
+            transition: all 0.2s;
+        }
+        button{
+            @include buttonFunction($border:1px solid $muchFadedTextColor);
+            padding: 6px 10px 6px 30px;
+            @include standartFadedText;
+            transition: all 0.2s;
+        }
+        .gridBtn{
+            border-bottom-right-radius: 4px;
+            border-top-right-radius: 4px;
+        }
+        .listBtn{
+            border-bottom-left-radius: 4px;
+            border-top-left-radius: 4px;
+            border-right: 0;
+        }
+        &:hover button{
+            background-color: $greenButtonBackgroundColor;
+            color: white;
+        }
+        &:hover svg{
+            color: white;
+        }
+        
+        .buttonActive{
+            background-color: $greenButtonBackgroundColor;
+            color: white;
+        }
+        .svgActive{
+            color: white;
+        }
     }
-    .firstBtn{
-        border-bottom-left-radius: 4px;
-        border-top-left-radius: 4px;
-        border-right: 0;
-    }
-    .secondBtn{
-        border-bottom-right-radius: 4px;
-        border-top-right-radius: 4px;
-    }
+   
 }
