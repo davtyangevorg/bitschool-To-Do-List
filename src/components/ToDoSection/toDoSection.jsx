@@ -1,20 +1,47 @@
-import React from 'react'
+import React, { useState } from 'react'
 
 import styles from './toDoSection.module.scss'
 import { Container, Row } from 'react-bootstrap'
+
+import { IoGrid, FaListUl } from 'react-icons/all'
 
 import ToDoListFoundation from './ToDoListFoundation/toDoList.jsx'
 
 
 const ToDoSection = () => {
 
+    const [isActiceListBtn, setIsActiveListBtn] = useState(true)
+    const [isActiceGridBtn, setIsActiveGridBtn] = useState(false)
+
+    const handleActive = (type) => {
+        if (type === 'list') {
+            setIsActiveListBtn(true)
+            setIsActiveGridBtn(false)
+        } else {
+            setIsActiveGridBtn(true)
+            setIsActiveListBtn(false)
+        }
+    }
+
     return (
         <>
             <Container fluid style={{ padding: '25px 45px' }}>
                 <Row>
                     <div className={styles.tasksStylesBtns}>
-                        <button className={styles.firstBtn}>Grid</button>
-                        <button className={styles.secondBtn}>List</button>
+                        <div
+                            className={styles.btnDiv}
+                            onClick={() => { handleActive('list') }}
+                        >
+                            <FaListUl className={isActiceListBtn && styles.svgActive} />
+                            <button className={`${styles.listBtn} ${isActiceListBtn && styles.buttonActive}`}>List</button>
+                        </div>
+                        <div
+                            className={styles.btnDiv}
+                            onClick={() => { handleActive('grid') }}
+                        >
+                            <IoGrid className={isActiceGridBtn && styles.svgActive} />
+                            <button className={`${styles.gridBtn} ${isActiceGridBtn && styles.buttonActive}`}>Grid</button>
+                        </div>
                     </div>
                 </Row>
                 <ToDoListFoundation />
