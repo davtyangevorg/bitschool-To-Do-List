@@ -1,29 +1,5 @@
 @import '../../../styles/mixins';
-@import '../../../styles/variables';
 
-.notTasks{
-    padding-top: 200px;
-    text-align: center;
-    h3{
-        margin-bottom: 15px;
-    }
-    p{
-    
-        @include standartMuchFadedText;
-        font-size:15px;
-        margin-bottom: 20px;
-    }
-    button{
-        text-align: center;
-        @include buttonFunction($bColor:$greenButtonBackgroundColor,$color:white,$borderRadius:50%);
-        height: 35px;
-        width: 35px;
-        transition: all 0.3s;
-        &:hover{
-            background-color: $greenButtonHoverBackgroundColor;
-        }
-    }
-}
 
 .deleteTasksBtn{
     @include buttonFunction($bColor:red,$color:white,$borderRadius:5px);
