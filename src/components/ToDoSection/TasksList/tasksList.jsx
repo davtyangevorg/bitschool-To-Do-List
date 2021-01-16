@@ -1,9 +1,12 @@
 import React from 'react'
 
+import PropTypes from 'prop-types'
+
 import styles from './tasksList.module.scss'
 import { Col } from 'react-bootstrap'
 
-const ToDoList = ({ tasks, deleteTask }) => {
+
+const TasksList = ({ tasks, deleteTask }) => {
 
     return (
         <>
@@ -27,4 +30,13 @@ const ToDoList = ({ tasks, deleteTask }) => {
     )
 }
 
-export default ToDoList
+TasksList.propTypes = {
+    tasks: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string,
+        title: PropTypes.string,
+        description: PropTypes.string
+    })).isRequired,
+    deleteTask: PropTypes.func.isRequired
+}
+
+export default TasksList
