@@ -10,9 +10,12 @@ import ToDoListFoundation from './ToDoListFoundation/toDoListFoundation.jsx'
 import { ListOrGridSwitchContext } from '../../context.js'
 
 const ToDoSection = () => {
-    const [switchName,setSwitchName]=useState('list')
+
+    const [switchName, setSwitchName] = useState('list')
     const [isActiceListBtn, setIsActiveListBtn] = useState(true)
     const [isActiceGridBtn, setIsActiveGridBtn] = useState(false)
+
+
 
     const handleActive = (type) => {
         if (type === 'list') {

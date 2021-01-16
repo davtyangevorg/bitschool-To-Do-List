@@ -1,14 +1,8 @@
 @import '../../styles/variables';
-@import '../../styles/mixins';
 
 .home{
     background-color: $homeBackgroundColor;
     width: 100%;
-    .home_header{
-        border-bottom: 1px solid $fadedLineColor;
-        background-color: white;
-        height: 5vh;
-    }
     .home_section{
         height: 90vh;
     }
