@@ -1,19 +1,13 @@
-import React, { useEffect, useContext } from 'react'
+import React from 'react'
 
 import PropTypes from 'prop-types'
 
 import styles from './tasksGrid.module.scss'
 import { Col } from 'react-bootstrap'
 
-import { SelectedTasksIdsLengthContext } from '../../../context.js'
 
 const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask }) => {
 
-    const { setSelectedTasksIdsLength } = useContext(SelectedTasksIdsLengthContext)
-
-    useEffect(() => {
-        setSelectedTasksIdsLength(selectedTasksIds.size)
-    }, [selectedTasksIds, setSelectedTasksIdsLength])
 
     return (
         tasks.map(el => {

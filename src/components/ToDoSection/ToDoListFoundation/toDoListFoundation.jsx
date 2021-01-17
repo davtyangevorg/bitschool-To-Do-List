@@ -7,12 +7,20 @@ import AddTaskFormModal from '../AddTaskForm/addTaskFormModal.jsx'
 import Tasks from '../Tasks/tasks.jsx'
 import IsDeleteSelectedTasksConfirm from '../../Features/Confirm/confirm.jsx'
 
+import { SelectedTasksIdsLengthContext } from '../../../context.js'
+
 class ToDoList extends Component {
 
     state = {
         tasks: [],
         selectedTasksIds: new Set(),
         isShowConfirm: false,
+    }
+
+    componentDidUpdate(_, prevState) {
+        if (this.state.selectedTasksIds.size !== prevState.selectedTasksIds.size) {
+            this.context.setSelectedTasksIdsLength(this.state.selectedTasksIds.size)
+        }
     }
 
     createTask = (newTask) => {
@@ -50,6 +58,11 @@ class ToDoList extends Component {
         })
     }
 
+    // handleDeleteTasksButton = setSelectedTasksIdsLength => {
+    //     this.togleConfirm()
+    //     //setSelectedTasksIdsLength(this.state.selectedTasksIds)
+    // }
+
     render() {
         return (
             <>
@@ -62,13 +75,19 @@ class ToDoList extends Component {
                         togleSelectTask={this.togleSelectTask}
                     />
                 </Row>
-                {this.state.selectedTasksIds.size
-                    ? <Row>
-                        <Col>
-                            <button onClick={this.togleConfirm} className={styles.deleteTasksBtn}>Delete Selected Tasks</button>
-                        </Col>
-                    </Row>
-                    : null
+                {
+                    this.state.selectedTasksIds.size
+                        ? <Row>
+                            <Col>
+                                <button
+                                    onClick={this.togleConfirm}
+                                    className={styles.deleteTasksBtn}
+                                >
+                                    Delete Selected Tasks
+                            </button>
+                            </Col>
+                        </Row>
+                        : null
                 }
                 <IsDeleteSelectedTasksConfirm
                     closeConfirm={this.togleConfirm}
@@ -84,3 +103,4 @@ class ToDoList extends Component {
 export default ToDoList
 
 
+ToDoList.contextType = SelectedTasksIdsLengthContext;
