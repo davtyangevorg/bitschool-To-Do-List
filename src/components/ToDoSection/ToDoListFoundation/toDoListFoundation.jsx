@@ -58,11 +58,6 @@ class ToDoList extends Component {
         })
     }
 
-    // handleDeleteTasksButton = setSelectedTasksIdsLength => {
-    //     this.togleConfirm()
-    //     //setSelectedTasksIdsLength(this.state.selectedTasksIds)
-    // }
-
     render() {
         return (
             <>
