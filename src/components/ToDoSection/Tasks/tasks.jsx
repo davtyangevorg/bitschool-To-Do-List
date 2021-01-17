@@ -1,5 +1,7 @@
 import React, { useContext } from 'react'
 
+import PropTypes from 'prop-types'
+
 import styles from './tasks.module.scss'
 import { Col } from 'react-bootstrap'
 
@@ -14,7 +16,7 @@ import { ListOrGridSwitchContext, AddTaskModalContext } from '../../../context.j
 const Tasks = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask }) => {
 
     const switchName = useContext(ListOrGridSwitchContext)
-    const { setIsShowAddTaskFormModal } = useContext(AddTaskModalContext)
+    const { setIsShowAddTaskFormModal } = useContext(AddTaskModalContext) 
 
     return (
         <>
@@ -43,6 +45,17 @@ const Tasks = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask }) => {
             }
         </>
     )
+}
+
+Tasks.propTypes = {
+    tasks: PropTypes.arrayOf(PropTypes.shape({
+        _id: PropTypes.string,
+        title: PropTypes.string,
+        description: PropTypes.string
+    })).isRequired,
+    selectedTasksIds: PropTypes.instanceOf(Set).isRequired,
+    deleteTask: PropTypes.func.isRequired,
+    togleSelectTask: PropTypes.func.isRequired
 }
 
 export default Tasks

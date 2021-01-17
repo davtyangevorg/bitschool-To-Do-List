@@ -1,5 +1,7 @@
 import React, { useState, useContext } from 'react'
 
+import PropTypes from 'prop-types'
+
 import styles from './addTaskFormModal.module.scss'
 import { animated, useSpring } from 'react-spring'
 
@@ -12,7 +14,7 @@ import { AddTaskModalContext } from '../../../context.js'
 const AddTaskFormModal = ({ createTask }) => {
 
     const [values, setValues] = useState({ title: '', description: '' })
-    
+
     const { isShowAddTaskFormModal, setIsShowAddTaskFormModal } = useContext(AddTaskModalContext)
 
     const handleSubmit = (event) => {
@@ -91,6 +93,10 @@ const AddTaskFormModal = ({ createTask }) => {
             </animated.div>
         </animated.div>
     )
+}
+
+AddTaskFormModal.propTypes = {
+    createTask: PropTypes.func.isRequired
 }
 
 export default AddTaskFormModal
