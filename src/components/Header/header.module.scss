@@ -1,0 +1,33 @@
+@import '../../styles/variables';
+@import '../../styles/mixins';
+
+.header{
+    border-bottom: 1px solid $fadedLineColor;
+    background-color: white;
+    height: 5vh;
+    padding: 0 45px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    .addTaskBtn{
+        position: relative;
+        button{
+            @include standartText;
+            @include buttonFunction($bColor:$greenButtonBackgroundColor,$color:white,$border:0,$borderRadius:20px);
+            padding:9px 10px 9px 40px;
+            transition: all 0.2s;
+        }
+        svg{
+            position: absolute;
+            left: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: white;
+            font-size: 25px;
+            cursor: pointer;
+        }
+        &:hover button{
+            background-color: $greenButtonHoverBackgroundColor;
+        }
+    }
+}
