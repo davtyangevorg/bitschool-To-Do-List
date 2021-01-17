@@ -5,19 +5,22 @@ import { Container, Row } from 'react-bootstrap'
 
 import { IoGrid, FaListUl } from 'react-icons/all'
 
-import ToDoListFoundation from './ToDoListFoundation/toDoList.jsx'
+import ToDoListFoundation from './ToDoListFoundation/toDoListFoundation.jsx'
 
+import { ListOrGridSwitchContext } from '../../context.js'
 
 const ToDoSection = () => {
-
+    const [switchName,setSwitchName]=useState('list')
     const [isActiceListBtn, setIsActiveListBtn] = useState(true)
     const [isActiceGridBtn, setIsActiveGridBtn] = useState(false)
 
     const handleActive = (type) => {
         if (type === 'list') {
+            setSwitchName('list')
             setIsActiveListBtn(true)
             setIsActiveGridBtn(false)
         } else {
+            setSwitchName('grid')
             setIsActiveGridBtn(true)
             setIsActiveListBtn(false)
         }
@@ -44,7 +47,9 @@ const ToDoSection = () => {
                         </div>
                     </div>
                 </Row>
-                <ToDoListFoundation />
+                <ListOrGridSwitchContext.Provider value={switchName}>
+                    <ToDoListFoundation />
+                </ListOrGridSwitchContext.Provider>
             </Container>
         </>
     )
