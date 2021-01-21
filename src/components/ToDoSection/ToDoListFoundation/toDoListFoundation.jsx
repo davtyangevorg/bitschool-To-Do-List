@@ -4,6 +4,8 @@ import { Row, Col } from 'react-bootstrap'
 import styles from './toDoListFoundation.module.scss'
 
 import AddTaskFormModal from '../AddTaskForm/addTaskFormModal.jsx'
+import EditTaskFormModal from '../EditeTaskForm/editeTaskFormModal.jsx'
+
 import Tasks from '../Tasks/tasks.jsx'
 import IsDeleteSelectedTasksConfirm from '../../Features/Confirm/confirm.jsx'
 
@@ -15,6 +17,8 @@ class ToDoList extends Component {
         tasks: [],
         selectedTasksIds: new Set(),
         isShowConfirm: false,
+        isShowEditeTaskForm: false,
+        taskForEdit: null
     }
 
     componentDidUpdate(_, prevState) {
@@ -58,16 +62,45 @@ class ToDoList extends Component {
         })
     }
 
+    getTaskForEdit = (task) => {
+        this.setState({
+            taskForEdit: task
+        })
+        this.togleIsShowEditTaskForm()
+    }
+    togleIsShowEditTaskForm = () => {
+        this.setState({
+            isShowEditeTaskForm: !this.state.isShowEditeTaskForm
+        })
+    }
+    editTask = (editedTask) => {
+        const tasks = [...this.state.tasks]
+        
+        const id = this.state.tasks.findIndex(el => el._id === editedTask._id)
+        tasks[id] = editedTask
+
+        this.setState({tasks})
+        this.togleIsShowEditTaskForm()
+    }
+
+
     render() {
         return (
             <>
                 <AddTaskFormModal createTask={this.createTask} />
+                {this.state.isShowEditeTaskForm && <EditTaskFormModal
+                    taskForEdit={this.state.taskForEdit}
+                    togleIsShowEditTaskForm={this.togleIsShowEditTaskForm}
+                    editTask={this.editTask}
+                />}
+
                 <Row>
                     <Tasks
                         tasks={this.state.tasks}
                         selectedTasksIds={this.state.selectedTasksIds}
                         deleteTask={this.deleteTask}
                         togleSelectTask={this.togleSelectTask}
+                        getTaskForEdit={this.getTaskForEdit}
                     />
                 </Row>
                 {

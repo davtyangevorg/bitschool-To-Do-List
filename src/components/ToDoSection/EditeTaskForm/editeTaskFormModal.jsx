@@ -1,35 +1,29 @@
-import React, { useState, useContext } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import PropTypes from 'prop-types'
 
-import styles from './addTaskFormModal.module.scss'
+import styles from './editeTaskFormModal.module.scss'
 import { animated, useSpring } from 'react-spring'
 
 import { RiCloseLine } from 'react-icons/all'
 
-import { v4 as uuidv4 } from 'uuid';
+const EditTaskFormModal = ({ taskForEdit, togleIsShowEditTaskForm, editTask }) => {
 
-import { AddTaskModalContext } from '../../../context.js'
+    const [isShowEditeTaskFormLocal, setIsShowEditeTaskFormLocal] = useState(false)
+    const [values, setValues] = useState({ title: taskForEdit.title, description: taskForEdit.description })
 
-const AddTaskFormModal = ({ createTask }) => {
-    const [values, setValues] = useState({ title: '', description: '' })
-
-    const { isShowAddTaskFormModal, setIsShowAddTaskFormModal } = useContext(AddTaskModalContext)
+    useEffect(() => {
+        setIsShowEditeTaskFormLocal(true)
+    }, [])
 
     const handleSubmit = (event) => {
         event.preventDefault()
         if (values.title) {
-            createTask(
-                {
-                    _id: uuidv4(),
-                    title: values.title,
-                    description: values.description
-                }
-            )
-            setValues({
-                title: '', description: ''
+            editTask({
+                _id: taskForEdit._id,
+                title: values.title,
+                description: values.description
             })
-            setIsShowAddTaskFormModal(false)
         }
     }
     const handleChange = (event) => {
@@ -41,29 +35,29 @@ const AddTaskFormModal = ({ createTask }) => {
 
     const onHeaderClick = event => {
         if (event.target === event.currentTarget) {
-            setIsShowAddTaskFormModal(false)
+            togleIsShowEditTaskForm()
         }
     }
 
     const taskBack = useSpring({
-        display: isShowAddTaskFormModal ? 'block' : 'none'
+        display: isShowEditeTaskFormLocal ? 'block' : 'none'
     })
     const taskBackgroundAnime = useSpring({
-        opacity: isShowAddTaskFormModal ? 1 : 0,
-        config: { duration: 200 }
+        opacity: isShowEditeTaskFormLocal ? 1 : 0,
+        config: { duration: 300 }
     })
     const taskInnerAnime = useSpring({
-        transform: isShowAddTaskFormModal ? 'translateY(20%)' : 'translateY(5%)',
-        config: { duration: 200 }
+        transform: isShowEditeTaskFormLocal ? 'translateY(20%)' : 'translateY(5%)',
+        config: { duration: 300 }
     })
-    
+
     return (
         <animated.div style={taskBack}>
             <animated.div style={taskBackgroundAnime} className={styles.modal_background} onClick={onHeaderClick}>
                 <animated.div style={taskInnerAnime} className={styles.modal_inner} >
                     <div className={styles.modal_title}>
                         <h3>Add Task</h3>
-                        <RiCloseLine onClick={() => { setIsShowAddTaskFormModal(false) }} />
+                        <RiCloseLine onClick={togleIsShowEditTaskForm} />
                     </div>
                     <div className={styles.line}></div>
                     <form onSubmit={handleSubmit} className={styles.form}>
@@ -90,8 +84,8 @@ const AddTaskFormModal = ({ createTask }) => {
                         </div>
                         <div className={styles.line}></div>
                         <div className={styles.form_bnts}>
-                            <span onClick={() => { setIsShowAddTaskFormModal(false) }}>Cancel</span>
-                            <button >Create Task</button>
+                            <span onClick={togleIsShowEditTaskForm}>Cancel</span>
+                            <button >Edit Task</button>
                         </div>
                     </form>
                 </animated.div>
@@ -100,8 +94,14 @@ const AddTaskFormModal = ({ createTask }) => {
     )
 }
 
-AddTaskFormModal.propTypes = {
-    createTask: PropTypes.func.isRequired
+EditTaskFormModal.propTypes = {
+    taskForEdit: PropTypes.shape({
+        _id: PropTypes.string,
+        title: PropTypes.string,
+        description: PropTypes.string
+    }).isRequired,
+    togleIsShowEditTaskForm: PropTypes.func.isRequired,
+    editTask: PropTypes.func.isRequired
 }
 
-export default AddTaskFormModal
+export default EditTaskFormModal
