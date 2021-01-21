@@ -1,30 +1,53 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import PropTypes from 'prop-types'
 
-import styles from './editeTaskFormModal.module.scss'
+import styles from './formModal.module.scss'
 import { animated, useSpring } from 'react-spring'
 
 import { RiCloseLine } from 'react-icons/all'
 
-const EditTaskFormModal = ({ taskForEdit, togleIsShowEditTaskForm, editTask }) => {
+import { v4 as uuidv4 } from 'uuid';
 
-    const [isShowEditeTaskFormLocal, setIsShowEditeTaskFormLocal] = useState(false)
-    const [values, setValues] = useState({ title: taskForEdit.title, description: taskForEdit.description })
+
+const FormModal = ({ modalTitle, handleTask, setIsShowModal, taskForEdit }) => {
+
+    const defaultValueTitle = modalTitle === 'Add Task' ? '' : taskForEdit.title
+    const defaultValueDescription = modalTitle === 'Add Task' ? '' : taskForEdit.description
+
+    const [values, setValues] = useState({
+        title: defaultValueTitle,
+        description: defaultValueDescription
+    })
+    const [isShowModalLocal, setIsShowModalLocal] = useState(false)
 
     useEffect(() => {
-        setIsShowEditeTaskFormLocal(true)
+        setIsShowModalLocal(true)
     }, [])
 
     const handleSubmit = (event) => {
+
         event.preventDefault()
+
         if (values.title) {
-            editTask({
-                _id: taskForEdit._id,
-                title: values.title,
-                description: values.description
-            })
+            if (modalTitle === 'Add Task') {
+                handleTask(
+                    {
+                        _id: uuidv4(),
+                        title: values.title,
+                        description: values.description
+                    }
+                )
+                setIsShowModal(false)
+            } else {
+                handleTask({
+                    _id: taskForEdit._id,
+                    title: values.title,
+                    description: values.description
+                })
+            }
         }
+
     }
     const handleChange = (event) => {
         setValues({
@@ -35,20 +58,20 @@ const EditTaskFormModal = ({ taskForEdit, togleIsShowEditTaskForm, editTask }) =
 
     const onHeaderClick = event => {
         if (event.target === event.currentTarget) {
-            togleIsShowEditTaskForm()
+            setIsShowModal(false)
         }
     }
 
     const taskBack = useSpring({
-        display: isShowEditeTaskFormLocal ? 'block' : 'none'
+        display: isShowModalLocal ? 'block' : 'none'
     })
     const taskBackgroundAnime = useSpring({
-        opacity: isShowEditeTaskFormLocal ? 1 : 0,
-        config: { duration: 300 }
+        opacity: isShowModalLocal ? 1 : 0,
+        config: { duration: 200 }
     })
     const taskInnerAnime = useSpring({
-        transform: isShowEditeTaskFormLocal ? 'translateY(20%)' : 'translateY(5%)',
-        config: { duration: 300 }
+        transform: isShowModalLocal ? 'translateY(20%)' : 'translateY(5%)',
+        config: { duration: 200 }
     })
 
     return (
@@ -56,8 +79,8 @@ const EditTaskFormModal = ({ taskForEdit, togleIsShowEditTaskForm, editTask }) =
             <animated.div style={taskBackgroundAnime} className={styles.modal_background} onClick={onHeaderClick}>
                 <animated.div style={taskInnerAnime} className={styles.modal_inner} >
                     <div className={styles.modal_title}>
-                        <h3>Add Task</h3>
-                        <RiCloseLine onClick={togleIsShowEditTaskForm} />
+                        <h3>{modalTitle}</h3>
+                        <RiCloseLine onClick={() => { setIsShowModal(false) }} />
                     </div>
                     <div className={styles.line}></div>
                     <form onSubmit={handleSubmit} className={styles.form}>
@@ -84,8 +107,8 @@ const EditTaskFormModal = ({ taskForEdit, togleIsShowEditTaskForm, editTask }) =
                         </div>
                         <div className={styles.line}></div>
                         <div className={styles.form_bnts}>
-                            <span onClick={togleIsShowEditTaskForm}>Cancel</span>
-                            <button >Edit Task</button>
+                            <span onClick={() => { setIsShowModal(false) }}>Cancel</span>
+                            <button >{modalTitle}</button>
                         </div>
                     </form>
                 </animated.div>
@@ -94,14 +117,15 @@ const EditTaskFormModal = ({ taskForEdit, togleIsShowEditTaskForm, editTask }) =
     )
 }
 
-EditTaskFormModal.propTypes = {
+FormModal.propTypes = {
+    modalTitle: PropTypes.string.isRequired,
+    handleTask: PropTypes.func.isRequired,
+    setIsShowModal: PropTypes.func.isRequired,
     taskForEdit: PropTypes.shape({
         _id: PropTypes.string,
         title: PropTypes.string,
         description: PropTypes.string
-    }).isRequired,
-    togleIsShowEditTaskForm: PropTypes.func.isRequired,
-    editTask: PropTypes.func.isRequired
+    })
 }
 
-export default EditTaskFormModal
+export default FormModal
