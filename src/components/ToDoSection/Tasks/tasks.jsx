@@ -13,10 +13,10 @@ import TasksList from '../TasksList/tasksList.jsx'
 
 import { ListOrGridSwitchContext, AddTaskModalContext } from '../../../context.js'
 
-const Tasks = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask,getTaskForEdit }) => {
+const Tasks = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTaskForEdit }) => {
 
     const switchName = useContext(ListOrGridSwitchContext)
-    const { setIsShowAddTaskFormModal } = useContext(AddTaskModalContext) 
+    const { setIsShowAddTaskFormModal } = useContext(AddTaskModalContext)
 
     return (
         <>
@@ -57,7 +57,7 @@ Tasks.propTypes = {
     selectedTasksIds: PropTypes.instanceOf(Set).isRequired,
     deleteTask: PropTypes.func.isRequired,
     togleSelectTask: PropTypes.func.isRequired,
-    getTaskForEdit:PropTypes.func.isRequired
+    getTaskForEdit: PropTypes.func.isRequired
 }
 
 export default Tasks

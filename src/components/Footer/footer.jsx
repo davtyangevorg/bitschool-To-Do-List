@@ -5,6 +5,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 import styles from './footer.module.scss'
 
 const Footer = () => {
+    
     return (
         <div className={styles.footer}>
             <Container fluid style={{ padding: '2px 45px' }}>
