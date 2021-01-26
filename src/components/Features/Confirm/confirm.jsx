@@ -65,4 +65,4 @@ Confirm.propsTypes = {
     isShowConfirm: PropsTypes.bool.isRequired
 }
 
-export default Confirm
+export default React.memo(Confirm)

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { PureComponent } from 'react'
 
 import { Row, Col } from 'react-bootstrap'
 import styles from './toDoListFoundation.module.scss'
@@ -10,7 +10,7 @@ import IsDeleteSelectedTasksConfirm from '../../Features/Confirm/confirm.jsx'
 
 import { SelectedTasksIdsLengthContext, AddTaskModalContext } from '../../../context.js'
 
-class ToDoList extends Component {
+class ToDoList extends PureComponent {
 
     state = {
         tasks: [],
@@ -84,6 +84,7 @@ class ToDoList extends Component {
 
 
     render() {
+
         return (
             <>
                 <AddTaskModalContext.Consumer>
