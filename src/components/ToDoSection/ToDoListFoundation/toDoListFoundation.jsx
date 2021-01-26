@@ -3,13 +3,12 @@ import React, { Component } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import styles from './toDoListFoundation.module.scss'
 
-import AddTaskFormModal from '../AddTaskForm/addTaskFormModal.jsx'
-import EditTaskFormModal from '../EditeTaskForm/editeTaskFormModal.jsx'
+import FormModal from '../FormModal/formModal.jsx'
 
 import Tasks from '../Tasks/tasks.jsx'
 import IsDeleteSelectedTasksConfirm from '../../Features/Confirm/confirm.jsx'
 
-import { SelectedTasksIdsLengthContext } from '../../../context.js'
+import { SelectedTasksIdsLengthContext, AddTaskModalContext } from '../../../context.js'
 
 class ToDoList extends Component {
 
@@ -75,11 +74,11 @@ class ToDoList extends Component {
     }
     editTask = (editedTask) => {
         const tasks = [...this.state.tasks]
-        
+
         const id = this.state.tasks.findIndex(el => el._id === editedTask._id)
         tasks[id] = editedTask
 
-        this.setState({tasks})
+        this.setState({ tasks })
         this.togleIsShowEditTaskForm()
     }
 
@@ -87,11 +86,20 @@ class ToDoList extends Component {
     render() {
         return (
             <>
-                <AddTaskFormModal createTask={this.createTask} />
-                {this.state.isShowEditeTaskForm && <EditTaskFormModal
+                <AddTaskModalContext.Consumer>
+                    {({ isShowAddTaskFormModal, setIsShowAddTaskFormModal }) => (
+                        isShowAddTaskFormModal && <FormModal
+                            modalTitle='Add Task'
+                            handleTask={this.createTask}
+                            setIsShowModal={setIsShowAddTaskFormModal}
+                        />
+                    )}
+                </AddTaskModalContext.Consumer>
+                {this.state.isShowEditeTaskForm && <FormModal
+                    modalTitle='Edit Task'
+                    handleTask={this.editTask}
+                    setIsShowModal={this.togleIsShowEditTaskForm}
                     taskForEdit={this.state.taskForEdit}
-                    togleIsShowEditTaskForm={this.togleIsShowEditTaskForm}
-                    editTask={this.editTask}
                 />}
 
                 <Row>
