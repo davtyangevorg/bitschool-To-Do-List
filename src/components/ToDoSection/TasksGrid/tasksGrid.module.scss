@@ -1,3 +1,6 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
+
 .task{
     padding: 15px 20px;
     position: relative;
@@ -11,11 +14,37 @@
     p{
         word-break: break-all
     }   
-    button{
+    .task_deleteBtn{
         position: absolute;
-        right: 10px;
-        top: 10px;
-        border: 0;
-        background-color: white;
+        right: 20px;
+        bottom: 15px;
+        @include buttonFunction ($bColor:$deleteButtonBackgroundColor,$color:white,$border:0,$borderRadius:5px);
+        padding: 5px 12px;
+        transition: all .2s;
+
+        &:hover{
+            background-color: $deleteButtonHoverBackgroundColor;
+        };
+        &:disabled{
+            cursor: not-allowed;
+            background-color: #cccccc;
+            color: #666666;
+        }
+    }
+    .task_editBtn{
+        position: absolute;
+        top: 15px;
+        right: 20px;
+        @include buttonFunction ($bColor:$greenButtonBackgroundColor,$color:white,$border:0,$borderRadius:5px);
+        padding: 5px 10px;
+        transition: all .2s;
+        &:hover{
+            background-color: $greenButtonHoverBackgroundColor;
+        }
+        &:disabled{
+            cursor: not-allowed;
+            background-color: #cccccc;
+            color: #666666;
+        }
     }
 }

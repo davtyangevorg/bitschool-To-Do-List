@@ -9,16 +9,18 @@ const Header = () => {
 
     const { setIsShowAddTaskFormModal } = useContext(AddTaskModalContext)
     const { selectedTasksIdsLength } = useContext(SelectedTasksIdsLengthContext)
-    
+
     return (
         <div className={styles.header}>
             <div>header</div>
             <div>
-                {!selectedTasksIdsLength &&
-                    <div onClick={() => { setIsShowAddTaskFormModal(true) }} className={styles.addTaskBtn}>
-                        <button >Add New Task</button>
-                        <MdAddCircle />
-                    </div>}
+                <button
+                    onClick={() => { setIsShowAddTaskFormModal(true) }}
+                    className={styles.addTaskBtn}
+                    disabled={!!selectedTasksIdsLength}
+                >Add New Task
+                    <MdAddCircle />
+                </button>
             </div>
         </div >
     )

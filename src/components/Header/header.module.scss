@@ -11,12 +11,10 @@
     justify-content: space-between;
     .addTaskBtn{
         position: relative;
-        button{
-            @include standartText;
-            @include buttonFunction($bColor:$greenButtonBackgroundColor,$color:white,$border:0,$borderRadius:20px);
-            padding:9px 10px 9px 40px;
-            transition: all 0.2s;
-        }
+        @include standartText;
+        @include buttonFunction($bColor:$greenButtonBackgroundColor,$color:white,$border:0,$borderRadius:20px);
+        padding:9px 10px 9px 40px;
+        transition: all 0.2s;
         svg{
             position: absolute;
             left: 10px;
@@ -26,8 +24,18 @@
             font-size: 25px;
             cursor: pointer;
         }
-        &:hover button{
+        &:hover{
             background-color: $greenButtonHoverBackgroundColor;
+        }
+        &:disabled{
+            cursor: not-allowed;
+            background-color: #cccccc;
+            color: #666666;
+        }
+        &:disabled svg{
+            cursor: not-allowed;
+            background-color: #cccccc;
+            color: #666666;
         }
     }
 }

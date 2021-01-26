@@ -5,9 +5,10 @@ import PropTypes from 'prop-types'
 import styles from './tasksGrid.module.scss'
 import { Col } from 'react-bootstrap'
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 
-const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask }) => {
-
+const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTaskForEdit }) => {
 
     return (
         tasks.map(el => {
@@ -19,7 +20,20 @@ const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask }) => 
                     />
                     <h4>{el.title}</h4>
                     <p>{el.description}</p>
-                    <button disabled={!!selectedTasksIds.size} onClick={() => { deleteTask(el._id) }}>&#10062;</button>
+                    <button
+                        onClick={() => { getTaskForEdit(el) }}
+                        className={styles.task_editBtn}
+                        disabled={!!selectedTasksIds.size}
+                    >
+                        <FontAwesomeIcon icon={faEdit} />
+                    </button>
+                    <button
+                        className={styles.task_deleteBtn}
+                        disabled={!!selectedTasksIds.size}
+                        onClick={() => { deleteTask(el._id) }}
+                    >
+                        <FontAwesomeIcon icon={faTrash} />
+                    </button>
                 </div>
             </Col>
         })
@@ -34,7 +48,8 @@ TasksGrid.propTypes = {
     })),
     selectedTasksIds: PropTypes.instanceOf(Set),
     deleteTask: PropTypes.func.isRequired,
-    togleSelectTask: PropTypes.func.isRequired
+    togleSelectTask: PropTypes.func.isRequired,
+    getTaskForEdit: PropTypes.func.isRequired
 }
 
 export default TasksGrid
