@@ -20,6 +20,33 @@ class ToDoList extends PureComponent {
         taskForEdit: null
     }
 
+    componentDidMount() {
+        fetch('http://localhost:3001/task', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+            .then(async response => {
+                const res = await response.json()
+
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error
+                    } else {
+                        throw new Error('Error')
+                    }
+                }
+
+                this.setState({
+                    tasks: res
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+
     componentDidUpdate(_, prevState) {
         if (this.state.selectedTasksIds.size !== prevState.selectedTasksIds.size) {
             this.context.setSelectedTasksIdsLength(this.state.selectedTasksIds.size)
@@ -27,15 +54,60 @@ class ToDoList extends PureComponent {
     }
 
     createTask = (newTask) => {
-        this.setState({
-            tasks: [...this.state.tasks, newTask]
+
+        fetch('http://localhost:3001/task', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(newTask),
         })
+            .then(async response => {
+                const res = await response.json()
+
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error
+                    } else {
+                        throw new Error('Error')
+                    }
+                }
+
+                this.setState({
+                    tasks: [...this.state.tasks, res]
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
     }
 
     deleteTask = (taskId) => {
-        this.setState({
-            tasks: this.state.tasks.filter(el => el._id !== taskId)
+
+        fetch(`http://localhost:3001/task/${taskId}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+            }
         })
+            .then(async response => {
+                const res = await response.json()
+
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error
+                    } else {
+                        throw new Error('Error')
+                    }
+                }
+                this.setState({
+                    tasks: this.state.tasks.filter(el => el._id !== taskId)
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     togleSelectTask = (selectedTaskId) => {
@@ -49,10 +121,35 @@ class ToDoList extends PureComponent {
         this.setState({ selectedTasksIds })
     }
     deleteSelectedTasks = () => {
-        this.setState({
-            tasks: this.state.tasks.filter(task => !this.state.selectedTasksIds.has(task._id)),
-            selectedTasksIds: new Set()
+
+        fetch(`http://localhost:3001/task`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                tasks: [...this.state.selectedTasksIds]
+            })
         })
+            .then(async response => {
+                const res = await response.json()
+
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error
+                    } else {
+                        throw new Error('Error')
+                    }
+                }
+
+                this.setState({
+                    tasks: this.state.tasks.filter(task => !this.state.selectedTasksIds.has(task._id)),
+                    selectedTasksIds: new Set()
+                })
+            })
+            .catch(error => {
+                console.log(error)
+            })
     }
 
     togleConfirm = () => {
@@ -72,14 +169,40 @@ class ToDoList extends PureComponent {
             isShowEditeTaskForm: !this.state.isShowEditeTaskForm
         })
     }
+
     editTask = (editedTask) => {
-        const tasks = [...this.state.tasks]
 
-        const id = this.state.tasks.findIndex(el => el._id === editedTask._id)
-        tasks[id] = editedTask
+        fetch(`http://localhost:3001/task/${editedTask._id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(editedTask)
+        })
+            .then(async response => {
+                const res = await response.json()
 
-        this.setState({ tasks })
-        this.togleIsShowEditTaskForm()
+                if (response.status >= 400 && response.status < 600) {
+                    if (res.error) {
+                        throw res.error
+                    } else {
+                        throw new Error('Error')
+                    }
+                }
+
+                const tasks = [...this.state.tasks]
+
+                const id = this.state.tasks.findIndex(el => el._id === res._id)
+                tasks[id] = res
+
+                this.setState({ tasks })
+                this.togleIsShowEditTaskForm()
+
+            })
+            .catch(error => {
+                console.log(error)
+            })
+
     }
 
 
