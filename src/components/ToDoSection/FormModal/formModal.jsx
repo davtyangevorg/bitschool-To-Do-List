@@ -7,7 +7,6 @@ import { animated, useSpring } from 'react-spring'
 
 import { RiCloseLine } from 'react-icons/all'
 
-import { v4 as uuidv4 } from 'uuid';
 
 
 const FormModal = ({ modalTitle, handleTask, setIsShowModal, taskForEdit }) => {
@@ -33,7 +32,6 @@ const FormModal = ({ modalTitle, handleTask, setIsShowModal, taskForEdit }) => {
             if (modalTitle === 'Add Task') {
                 handleTask(
                     {
-                        _id: uuidv4(),
                         title: values.title,
                         description: values.description
                     }
