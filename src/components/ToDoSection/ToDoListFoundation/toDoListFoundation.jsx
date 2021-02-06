@@ -225,7 +225,7 @@ class ToDoList extends PureComponent {
                     setIsShowModal={this.togleIsShowEditTaskForm}
                     taskForEdit={this.state.taskForEdit}
                 />}
-
+                
                 <Row>
                     <Tasks
                         tasks={this.state.tasks}

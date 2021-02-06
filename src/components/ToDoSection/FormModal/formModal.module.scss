@@ -47,8 +47,36 @@
             margin-bottom: 20px;
         }
         .form{
-            display: flex;
-            flex-direction: column;
+            //display: flex;
+            //flex-direction: column;
+            .date_div_inner{
+                width: 100%;
+                margin-left: 20px;
+                margin-top:10px;
+                margin-bottom:20px;
+                position: relative;
+                cursor: context-menu;
+                .date{
+                    @include standartText;
+                    border:1px solid $fadedLineColor;
+                    border-radius: 5px;
+                    padding: 8px 50px;
+                    outline: none;
+                }
+                svg{
+                    position: absolute;
+                    top:50%;
+                    left:8px;
+                    transform: translateY(-50%);
+                    color: $fadedTextColor;
+                }
+                label{
+                    left: 2px;
+                    top:-20px;
+                    position: absolute;
+                    @include standartText
+                }
+            }
             .form_div{
                 position: relative;
                 padding: 20px ;
