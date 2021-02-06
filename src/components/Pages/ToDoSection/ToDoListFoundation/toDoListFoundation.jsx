@@ -6,9 +6,9 @@ import styles from './toDoListFoundation.module.scss'
 import FormModal from '../FormModal/formModal.jsx'
 
 import Tasks from '../Tasks/tasks.jsx'
-import IsDeleteSelectedTasksConfirm from '../../Features/Confirm/confirm.jsx'
+import IsDeleteSelectedTasksConfirm from '../../../Features/Confirm/confirm.jsx'
 
-import { SelectedTasksIdsLengthContext, AddTaskModalContext } from '../../../context.js'
+import { SelectedTasksIdsLengthContext, AddTaskModalContext } from '../../../../context.js'
 
 class ToDoList extends PureComponent {
 
