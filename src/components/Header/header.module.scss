@@ -3,12 +3,15 @@
 
 .header{
     background-color: white;
-    height: 10vh;
     .header_top{
-        // border:1px solid red;
         padding: 10px 45px;
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
+        min-height: 56px;
+        .header_top_left{
+            
+        }
         .addTaskBtn{
             position: relative;
             @include standartText;

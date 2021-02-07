@@ -1,0 +1,1 @@
+export const textTruncate = (text = '', maxLength) => text.length < maxLength ? text : text.slice(0, maxLength) + '...'

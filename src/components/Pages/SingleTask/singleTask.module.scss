@@ -1,29 +1,25 @@
-@import '../../../../styles/mixins';
-@import '../../../../styles/variables';
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
 
 .task{
-    height: 200px;
-    padding: 15px 20px;
-    position: relative;
     background-color: white;
+    border-radius: 10px;
+    margin-top: 30px;
     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.07);
-    border-radius: 5px;
-    margin-bottom: 30px;
-    h4{
-        margin-bottom: 5px;
-        a{
-            @include standartText;
-            font-size: 25px;
-            text-decoration: none;
-        }
+    padding: 20px;
+    text-align: center;
+    .task_descriprion{
+        @include standartFadedText;
+        font-size: 18px;
+        margin-bottom: 20px;
+        height: 500px;
+        overflow-y: scroll;
     }
-    p{
-        word-break: break-all
-    }   
+    .task_footer{
+        display: flex;
+        justify-content: space-between;
+    }
     .task_deleteBtn{
-        position: absolute;
-        right: 20px;
-        bottom: 15px;
         @include buttonFunction ($bColor:$deleteButtonBackgroundColor,$color:white,$border:0,$borderRadius:5px);
         padding: 5px 12px;
         transition: all .2s;
@@ -38,12 +34,10 @@
         }
     }
     .task_editBtn{
-        position: absolute;
-        top: 15px;
-        right: 20px;
         @include buttonFunction ($bColor:$greenButtonBackgroundColor,$color:white,$border:0,$borderRadius:5px);
         padding: 5px 10px;
         transition: all .2s;
+        margin-right: 20px;
         &:hover{
             background-color: $greenButtonHoverBackgroundColor;
         }

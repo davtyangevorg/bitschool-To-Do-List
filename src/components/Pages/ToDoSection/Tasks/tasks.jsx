@@ -3,7 +3,7 @@ import React, { useContext } from 'react'
 import PropTypes from 'prop-types'
 
 import styles from './tasks.module.scss'
-import { Col } from 'react-bootstrap'
+import { Col} from 'react-bootstrap'
 
 import taskNote from '../../../../images/taskNote.svg'
 import { FaPlus } from 'react-icons/fa'
