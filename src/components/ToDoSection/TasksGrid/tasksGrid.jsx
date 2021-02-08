@@ -9,7 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 
 const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTaskForEdit }) => {
-
+    
     return (
         tasks.map(el => {
             return <Col key={el._id} md={6} lg={4} xl={3} >
@@ -20,6 +20,7 @@ const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTa
                     />
                     <h4>{el.title}</h4>
                     <p>{el.description}</p>
+                    <p>{el.date.slice(0,10)}</p>
                     <button
                         onClick={() => { getTaskForEdit(el) }}
                         className={styles.task_editBtn}
