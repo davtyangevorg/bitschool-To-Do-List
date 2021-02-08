@@ -3,7 +3,11 @@
 .footer{
     border-top: 1px solid $fadedLineColor;
     background-color: white;
-    height: 5vh;
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    padding:0 50px 0 200px;
     .textDiv{
         padding-top: 3px;
         display: flex;
