@@ -5,13 +5,13 @@ import PropTypes from 'prop-types'
 import styles from './tasks.module.scss'
 import { Col } from 'react-bootstrap'
 
-import taskNote from '../../../images/taskNote.svg'
+import taskNote from '../../../../images/taskNote.svg'
 import { FaPlus } from 'react-icons/fa'
 
 import TasksGrid from '../TasksGrid/tasksGrid.jsx'
 import TasksList from '../TasksList/tasksList.jsx'
 
-import { ListOrGridSwitchContext, AddTaskModalContext } from '../../../context.js'
+import { ListOrGridSwitchContext, AddTaskModalContext } from '../../../../context.js'
 
 const Tasks = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTaskForEdit }) => {
 

@@ -7,7 +7,7 @@ import { IoGrid, FaListUl } from 'react-icons/all'
 
 import ToDoListFoundation from './ToDoListFoundation/toDoListFoundation.jsx'
 
-import { ListOrGridSwitchContext } from '../../context.js'
+import { ListOrGridSwitchContext } from '../../../context.js'
 
 const ToDoSection = () => {
 

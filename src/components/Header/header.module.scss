@@ -2,40 +2,81 @@
 @import '../../styles/mixins';
 
 .header{
-    border-bottom: 1px solid $fadedLineColor;
     background-color: white;
-    height: 5vh;
-    padding: 0 45px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    .addTaskBtn{
-        position: relative;
-        @include standartText;
-        @include buttonFunction($bColor:$greenButtonBackgroundColor,$color:white,$border:0,$borderRadius:20px);
-        padding:9px 10px 9px 40px;
-        transition: all 0.2s;
-        svg{
-            position: absolute;
-            left: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: white;
-            font-size: 25px;
-            cursor: pointer;
+    height: 10vh;
+    .header_top{
+        // border:1px solid red;
+        padding: 10px 45px;
+        display: flex;
+        justify-content: space-between;
+        .addTaskBtn{
+            position: relative;
+            @include standartText;
+            @include buttonFunction($bColor:$greenButtonBackgroundColor,$color:white,$border:0,$borderRadius:20px);
+            padding:9px 10px 9px 40px;
+            transition: all 0.2s;
+            svg{
+                position: absolute;
+                left: 10px;
+                top: 50%;
+                transform: translateY(-50%);
+                color: white;
+                font-size: 25px;
+                cursor: pointer;
+            }
+            &:hover{
+                background-color: $greenButtonHoverBackgroundColor;
+            }
+            &:disabled{
+                cursor: not-allowed;
+                background-color: #cccccc;
+                color: #666666;
+            }
+            &:disabled svg{
+                cursor: not-allowed;
+                background-color: #cccccc;
+                color: #666666;
+            }
         }
-        &:hover{
-            background-color: $greenButtonHoverBackgroundColor;
+    }
+    .header_manu{
+        border-bottom: 1px solid $fadedLineColor;
+        border-top: 1px solid $fadedLineColor;
+        height: 40px;
+        display: flex;
+        .navlink{
+            position: relative;
+            @include standartFadedText;
+            padding: 0 10px;
+            margin-right: 10px;
+            line-height:37px;
+            height: 100%;
+            text-decoration: none;
+            transition: all .2s;
+            &::after{
+                content: '';
+                position: absolute;
+                left: 0;
+                bottom: 0;
+                width: 100%;
+                height: 2px;
+                background-color: $greenButtonBackgroundColor;
+                transition: all 0.2s ease-in-out 0s;
+                transform: scale(0);
+            }
+            &:hover{
+                color: $greenButtonBackgroundColor;
+            }
+            &:hover::after{
+                background-color: $greenButtonBackgroundColor;
+                transform: scale(1);
+            }
         }
-        &:disabled{
-            cursor: not-allowed;
-            background-color: #cccccc;
-            color: #666666;
-        }
-        &:disabled svg{
-            cursor: not-allowed;
-            background-color: #cccccc;
-            color: #666666;
+        .active{
+            color: $greenButtonBackgroundColor;
+            &::after{
+                transform: scale(1);
+            }
         }
     }
 }

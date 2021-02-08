@@ -1,16 +1,22 @@
 import React, { useState } from 'react'
 import style from './home.module.scss'
 
-import ToDoSection from '../ToDoSection/toDoSection.jsx'
+import { Redirect, Route, Switch } from 'react-router-dom'
+
 import Footer from '../Footer/footer.jsx'
 import Header from '../Header/header.jsx'
+
+import ToDoSection from '../Pages/ToDoSection/toDoSection.jsx'
+import About from '../Pages/About/about.jsx'
+import Contact from '../Pages/Contact/contact.jsx'
+import NotFound from '../Pages/NotFound/notFound.jsx'
 
 import { AddTaskModalContext, SelectedTasksIdsLengthContext } from '../../context.js'
 
 const Home = () => {
     const [isShowAddTaskFormModal, setIsShowAddTaskFormModal] = useState(false)
     const [selectedTasksIdsLength, setSelectedTasksIdsLength] = useState(0)
-    
+
     return (
         <div className={style.home}>
             <SelectedTasksIdsLengthContext.Provider
@@ -21,7 +27,36 @@ const Home = () => {
                 >
                     <Header />
                     <div className={style.home_section}>
-                        <ToDoSection />
+                        <Switch>
+                            <Route
+                                path='/'
+                                component={ToDoSection}
+                                exact
+                            />
+                            <Route
+                                path='/home'
+                                component={ToDoSection}
+                                exact
+                            />
+                            <Route
+                                path='/about'
+                                component={About}
+                                exact
+                            />
+                            <Route
+                                path='/contact'
+                                component={Contact}
+                                exact
+                            />
+                            <Route
+                                path='/not-found'
+                                component={NotFound}
+                                exact
+                            />
+                            <Redirect
+                                to='/not-found'
+                            />  
+                        </Switch>
                     </div>
                 </AddTaskModalContext.Provider>
             </SelectedTasksIdsLengthContext.Provider>
