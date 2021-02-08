@@ -1,26 +1,29 @@
-import React from 'react'
+import React,{useState,useEffect} from 'react'
 import quotationsData from '../../datas/quotations.json'
 
-import { Container, Row, Col } from 'react-bootstrap'
 import styles from './footer.module.scss'
 
 const Footer = () => {
-    
+
+    const [isShowText,setIsShowText]=useState(true)
+
+    useEffect(() => {
+        function media() {
+            if(window.innerWidth<=830) return setIsShowText(false)
+            return setIsShowText(true)
+        }
+        window.addEventListener('resize',media)
+        return () => {
+            window.removeEventListener('resize',media)
+        }
+    })
+
     return (
         <div className={styles.footer}>
-            <Container fluid style={{ padding: '2px 45px' }}>
-                <Row>
-                    <Col>
-                        footer
-                    </Col>
-                    <Col>
-                        <div className={styles.textDiv}>
-                            <p>"{getRandomQuotation(quotationsData).quotation}"</p>
-                            <h6>- {getRandomQuotation(quotationsData).people}</h6>
-                        </div>
-                    </Col>
-                </Row>
-            </Container>
+            {isShowText && <div className={styles.textDiv}>
+                <p>"{getRandomQuotation(quotationsData).quotation}"</p>
+                <h6>- {getRandomQuotation(quotationsData).people}</h6>
+            </div>}
         </div>
     )
 }

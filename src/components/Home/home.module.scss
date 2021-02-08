@@ -3,8 +3,10 @@
 .home{
     background-color: $homeBackgroundColor;
     width: 100%;
+    position: relative;
     .home_section{
-        height: 85vh;
+        overflow:hidden;
+        height: 800px;
+        max-height: 80%;
     }
-    
 }
