@@ -12,7 +12,7 @@ const Header = () => {
     const { setIsShowAddTaskFormModal } = useContext(AddTaskModalContext)
     const { selectedTasksIdsLength } = useContext(SelectedTasksIdsLengthContext)
     const { isShowAddNewTaskButton } = useContext(IsShowAddNewTaskButtonContext)
-
+    
     return (
         <div className={styles.header}>
             <div className={styles.header_top}>

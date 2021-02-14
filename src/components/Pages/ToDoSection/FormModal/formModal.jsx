@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect,useRef } from 'react'
 
 import PropTypes from 'prop-types'
 
@@ -11,7 +11,7 @@ import DatePicker from 'react-datepicker'
 import "react-datepicker/dist/react-datepicker.css"
 
 const FormModal = ({ modalTitle, handleTask, setIsShowModal, taskForEdit }) => {
-    
+
     const defaultValueTitle = modalTitle === 'Add Task' ? '' : taskForEdit.title
     const defaultValueDescription = modalTitle === 'Add Task' ? '' : taskForEdit.description
     const defaultValueDate = modalTitle === 'Add Task' ? new Date() : new Date(taskForEdit.date)
@@ -23,14 +23,18 @@ const FormModal = ({ modalTitle, handleTask, setIsShowModal, taskForEdit }) => {
     })
     const [isShowModalLocal, setIsShowModalLocal] = useState(false)
 
-        // state for datepicker
+    // state for datepicker
     const [isOpenCalendar, setIsOpenCalendar] = useState(false)
     const ref = React.createRef()
 
+    const inputTitleRef = useRef()
 
     useEffect(() => {
         setIsShowModalLocal(true)
+        inputTitleRef.current.focus()
     }, [])
+
+
 
     const handleSubmit = (event) => {
 
@@ -51,7 +55,7 @@ const FormModal = ({ modalTitle, handleTask, setIsShowModal, taskForEdit }) => {
                     _id: taskForEdit._id,
                     title: values.title,
                     description: values.description,
-                    date: values.date.toISOString().slice(0,10)
+                    date: values.date.toISOString().slice(0, 10)
                 })
             }
         }
@@ -117,6 +121,7 @@ const FormModal = ({ modalTitle, handleTask, setIsShowModal, taskForEdit }) => {
                             value={values.title}
                             onChange={handleChange}
                             placeholder='Title'
+                            ref={inputTitleRef}
                         />
                         <label htmlFor="title">Title</label>
                     </div>
