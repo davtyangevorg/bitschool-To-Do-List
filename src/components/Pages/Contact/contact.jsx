@@ -2,14 +2,17 @@ import React from 'react'
 
 import styles from './contact.module.scss'
 
+import { IoWarning } from 'react-icons/all'
+
 import useContactUsForm from '../../customHooks/useContactUsForm.js'
+import contactUsFormValidate from '../../Features/contactUsFormValidate.js'
 
 const Contact = () => {
 
-    const { values, handleSubmit, handleChange } = useContactUsForm(callback)
+    const { values, handleSubmit, handleChange, errors } = useContactUsForm(callback, contactUsFormValidate)
 
     function callback(data) {
-        
+        console.log(data)
         fetch('http://localhost:3001/form', {
             method: 'POST',
             headers: {
@@ -46,8 +49,12 @@ const Contact = () => {
                         name="name"
                         value={values.name}
                         onChange={handleChange}
+                        className={errors.name ? styles.errorBorder : ''}
                     />
-
+                    {errors.name && <div className={styles.error}>
+                        <IoWarning />
+                        <span>{errors.name}</span>
+                    </div>}
                 </div>
                 <div className={styles.input_wrap}>
                     <label htmlFor="email">Email</label>
@@ -56,7 +63,12 @@ const Contact = () => {
                         name="email"
                         value={values.email}
                         onChange={handleChange}
+                        className={errors.email ? styles.errorBorder : ''}
                     />
+                    {errors.email && <div className={styles.error}>
+                        <IoWarning />
+                        <span>{errors.email}</span>
+                    </div>}
                 </div>
                 <div className={styles.input_wrap}>
                     <label htmlFor="message">Message</label>
@@ -65,8 +77,13 @@ const Contact = () => {
                         name='message'
                         value={values.message}
                         onChange={handleChange}
+                        className={errors.message ? styles.errorBorder : ''}
                     >
                     </textarea>
+                    {errors.message && <div className={styles.error}>
+                        <IoWarning />
+                        <span>{errors.message}</span>
+                    </div>}
                 </div>
 
                 <button>
