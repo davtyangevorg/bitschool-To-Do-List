@@ -12,7 +12,7 @@ const Contact = () => {
     const { values, handleSubmit, handleChange, errors } = useContactUsForm(callback, contactUsFormValidate)
 
     function callback(data) {
-        console.log(data)
+
         fetch('http://localhost:3001/form', {
             method: 'POST',
             headers: {
@@ -31,7 +31,6 @@ const Contact = () => {
                     }
                 }
 
-                console.log(res)
             })
             .catch(error => {
                 console.log(error)
