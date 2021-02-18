@@ -18,7 +18,7 @@ import { AddTaskModalContext, SelectedTasksIdsLengthContext, IsShowAddNewTaskBut
 const Home = () => {
     const [isShowAddTaskFormModal, setIsShowAddTaskFormModal] = useState(false)
     const [selectedTasksIdsLength, setSelectedTasksIdsLength] = useState(0)
-    const [isShowAddNewTaskButton, setIsShowAddNewTaskButton] = useState(true)
+    const [isShowAddNewTaskButton, setIsShowAddNewTaskButton] = useState(false)
 
     return (
         <div className={style.home}>
