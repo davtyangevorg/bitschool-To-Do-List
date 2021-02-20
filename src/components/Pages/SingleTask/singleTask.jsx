@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react'
 
+import { useDispatch, useSelector } from 'react-redux'
+import { getTask, editTask } from '../../../redux/singleTask-reducer.js'
+
 import { Container, Row, Col } from 'react-bootstrap'
 import styles from './singleTask.module.scss'
 
@@ -11,34 +14,16 @@ import FormModal from '../ToDoSection/FormModal/formModal.jsx'
 const SingleTask = (props) => {
 
     const { taskId } = props.match.params
-    const [task, setTask] = useState(null)
+
     const [isShowEditeTaskForm, setIsShowEditeTaskForm] = useState(false)
 
+    const task = useSelector(state => state.singleTaskReducer.task)
+
+    const dispatch = useDispatch(getTask(taskId))
+
     useEffect(() => {
-        fetch(`http://localhost:3001/task/${taskId}`, {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then(async response => {
-                const res = await response.json()
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error
-                    } else {
-                        throw new Error('Error')
-                    }
-                }
-
-                setTask(res)
-
-            })
-            .catch(error => {
-                console.log(error)
-            })
-    }, [taskId])
+        dispatch(getTask(taskId))
+    }, [taskId, dispatch])
 
     const deleteTask = () => {
         fetch(`http://localhost:3001/task/${taskId}`, {
@@ -69,36 +54,11 @@ const SingleTask = (props) => {
     const togleIsShowEditTaskForm = () => {
         setIsShowEditeTaskForm(!isShowEditeTaskForm)
     }
-    const editTask = (editedTask) => {
-
-        fetch(`http://localhost:3001/task/${editedTask._id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(editedTask)
-        })
-            .then(async response => {
-                const res = await response.json()
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error
-                    } else {
-                        throw new Error('Error')
-                    }
-                }
-
-                setTask(res)
-                togleIsShowEditTaskForm()
-
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
+    const editeTask = (editedTask) => {
+        dispatch(editTask(editedTask))
+        togleIsShowEditTaskForm()
     }
-    //console.log(task)
+
     return (
         <Container>
             <Row>
@@ -133,7 +93,7 @@ const SingleTask = (props) => {
             </Row>
             {isShowEditeTaskForm && <FormModal
                 modalTitle='Edit Task'
-                handleTask={editTask}
+                handleTask={editeTask}
                 setIsShowModal={togleIsShowEditTaskForm}
                 taskForEdit={task}
             />}

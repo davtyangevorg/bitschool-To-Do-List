@@ -3,6 +3,9 @@ import React, { PureComponent } from 'react'
 import { Row, Col } from 'react-bootstrap'
 import styles from './toDoListFoundation.module.scss'
 
+import { connect } from 'react-redux'
+import { getTasks, createTask, deleteTask, deleteSelectedTasks, editTask } from '../../../../redux/toDo-reducer.js'
+
 import FormModal from '../FormModal/formModal.jsx'
 
 import Tasks from '../Tasks/tasks.jsx'
@@ -11,40 +14,16 @@ import IsDeleteSelectedTasksConfirm from '../../../Features/Confirm/confirm.jsx'
 import { SelectedTasksIdsLengthContext, AddTaskModalContext } from '../../../../context.js'
 
 class ToDoList extends PureComponent {
-
     state = {
-        tasks: [],
         selectedTasksIds: new Set(),
         isShowConfirm: false,
         isShowEditeTaskForm: false,
         taskForEdit: null
     }
 
+
     componentDidMount() {
-        fetch('http://localhost:3001/task', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then(async response => {
-                const res = await response.json()
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error
-                    } else {
-                        throw new Error('Error')
-                    }
-                }
-
-                this.setState({
-                    tasks: res
-                })
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        this.props.getTasks()
     }
 
     componentDidUpdate(_, prevState) {
@@ -54,60 +33,11 @@ class ToDoList extends PureComponent {
     }
 
     createTask = (newTask) => {
-
-        fetch('http://localhost:3001/task', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(newTask),
-        })
-            .then(async response => {
-                const res = await response.json()
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error
-                    } else {
-                        throw new Error('Error')
-                    }
-                }
-
-                this.setState({
-                    tasks: [...this.state.tasks, res]
-                })
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
+        this.props.createTask(newTask)
     }
 
     deleteTask = (taskId) => {
-
-        fetch(`http://localhost:3001/task/${taskId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then(async response => {
-                const res = await response.json()
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error
-                    } else {
-                        throw new Error('Error')
-                    }
-                }
-                this.setState({
-                    tasks: this.state.tasks.filter(el => el._id !== taskId)
-                })
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        this.props.deleteTask(taskId)
     }
 
     togleSelectTask = (selectedTaskId) => {
@@ -121,35 +51,10 @@ class ToDoList extends PureComponent {
         this.setState({ selectedTasksIds })
     }
     deleteSelectedTasks = () => {
-
-        fetch(`http://localhost:3001/task`, {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                tasks: [...this.state.selectedTasksIds]
-            })
+        this.props.deleteSelectedTasks(this.state.selectedTasksIds)
+        this.setState({
+            selectedTasksIds: new Set()
         })
-            .then(async response => {
-                const res = await response.json()
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error
-                    } else {
-                        throw new Error('Error')
-                    }
-                }
-
-                this.setState({
-                    tasks: this.state.tasks.filter(task => !this.state.selectedTasksIds.has(task._id)),
-                    selectedTasksIds: new Set()
-                })
-            })
-            .catch(error => {
-                console.log(error)
-            })
     }
 
     togleConfirm = () => {
@@ -171,43 +76,12 @@ class ToDoList extends PureComponent {
     }
 
     editTask = (editedTask) => {
-
-        fetch(`http://localhost:3001/task/${editedTask._id}`, {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(editedTask)
-        })
-            .then(async response => {
-                const res = await response.json()
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error
-                    } else {
-                        throw new Error('Error')
-                    }
-                }
-
-                const tasks = [...this.state.tasks]
-
-                const id = this.state.tasks.findIndex(el => el._id === res._id)
-                tasks[id] = res
-
-                this.setState({ tasks })
-                this.togleIsShowEditTaskForm()
-
-            })
-            .catch(error => {
-                console.log(error)
-            })
-
+        this.props.editTask(editedTask)
+        this.togleIsShowEditTaskForm()
     }
 
 
     render() {
-
         return (
             <>
                 <AddTaskModalContext.Consumer>
@@ -226,15 +100,6 @@ class ToDoList extends PureComponent {
                     taskForEdit={this.state.taskForEdit}
                 />}
 
-
-                <Tasks
-                    tasks={this.state.tasks}
-                    selectedTasksIds={this.state.selectedTasksIds}
-                    deleteTask={this.deleteTask}
-                    togleSelectTask={this.togleSelectTask}
-                    getTaskForEdit={this.getTaskForEdit}
-                />
-
                 {
                     this.state.selectedTasksIds.size
                         ? <Row>
@@ -249,6 +114,15 @@ class ToDoList extends PureComponent {
                         </Row>
                         : null
                 }
+                <Tasks
+                    tasks={this.props.tasks}
+                    selectedTasksIds={this.state.selectedTasksIds}
+                    deleteTask={this.deleteTask}
+                    togleSelectTask={this.togleSelectTask}
+                    getTaskForEdit={this.getTaskForEdit}
+                />
+
+
                 <IsDeleteSelectedTasksConfirm
                     closeConfirm={this.togleConfirm}
                     deleteConfirm={this.deleteSelectedTasks}
@@ -260,7 +134,34 @@ class ToDoList extends PureComponent {
         )
     }
 }
-export default ToDoList
+
+const mapStateToProps = (state) => {
+
+    return {
+        tasks: state.toDoReducer.tasks
+    }
+}
+const mapDistpatchToProps = (dispatch) => {
+
+    return {
+        getTasks: () => {
+            dispatch(getTasks())
+        },
+        createTask: (newTask) => {
+            dispatch(createTask(newTask))
+        },
+        deleteTask: (taskId) => {
+            dispatch(deleteTask(taskId))
+        },
+        deleteSelectedTasks: (selectedTasksIds) => {
+            dispatch(deleteSelectedTasks(selectedTasksIds))
+        },
+        editTask: (editedTask) => {
+            dispatch(editTask(editedTask))
+        }
+    }
+}
+export default connect(mapStateToProps, mapDistpatchToProps)(ToDoList)
 
 
 ToDoList.contextType = SelectedTasksIdsLengthContext;
