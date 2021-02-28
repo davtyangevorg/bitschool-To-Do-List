@@ -1,5 +1,9 @@
 import React, { useContext } from 'react'
 
+import {useDispatch} from 'react-redux'
+
+import {setIsShowAddTaskFormModalAction} from '../../../../redux/toDo-reducer.js'
+
 import PropTypes from 'prop-types'
 
 import styles from './tasks.module.scss'
@@ -11,12 +15,13 @@ import { FaPlus } from 'react-icons/fa'
 import TasksGrid from '../TasksGrid/tasksGrid.jsx'
 import TasksList from '../TasksList/tasksList.jsx'
 
-import { ListOrGridSwitchContext, AddTaskModalContext } from '../../../../context.js'
+import { ListOrGridSwitchContext } from '../../../../context.js'
 
 const Tasks = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTaskForEdit }) => {
 
     const switchName = useContext(ListOrGridSwitchContext)
-    const { setIsShowAddTaskFormModal } = useContext(AddTaskModalContext)
+
+    const dispatch = useDispatch()
 
     return (
         <>
@@ -38,7 +43,7 @@ const Tasks = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTaskFo
                         <img alt='taskNote' src={taskNote}></img>
                         <h3>Create your first task</h3>
                         <p>You do not have any tasks yet</p>
-                        <button onClick={() => { setIsShowAddTaskFormModal(true) }} >
+                        <button onClick={() => { dispatch(setIsShowAddTaskFormModalAction(true)) }} >
                             <FaPlus size='1rem' />
                         </button>
                     </div>

@@ -1,5 +1,9 @@
 import React from 'react'
 
+import { useDispatch } from 'react-redux'
+
+import { sendMessage } from '../../../redux/contact-reducer.js'
+
 import styles from './contact.module.scss'
 
 import { IoWarning } from 'react-icons/all'
@@ -9,32 +13,12 @@ import contactUsFormValidate from '../../Features/contactUsFormValidate.js'
 
 const Contact = () => {
 
+    const dispatch = useDispatch()
+
     const { values, handleSubmit, handleChange, errors } = useContactUsForm(callback, contactUsFormValidate)
 
     function callback(data) {
-
-        fetch('http://localhost:3001/form', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(data),
-        })
-            .then(async response => {
-                const res = await response.json()
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error
-                    } else {
-                        throw new Error('Error')
-                    }
-                }
-
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        dispatch(sendMessage(data))
     }
 
     return (

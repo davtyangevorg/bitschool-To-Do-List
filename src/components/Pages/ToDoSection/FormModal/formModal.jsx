@@ -16,6 +16,8 @@ const FormModal = ({ modalTitle, handleTask, setIsShowModal, taskForEdit }) => {
     const defaultValueDescription = modalTitle === 'Add Task' ? '' : taskForEdit.description
     const defaultValueDate = modalTitle === 'Add Task' ? new Date() : new Date(taskForEdit.date)
 
+    //const isSuccessCreateTask = useSelector(state => state.toDoReducer.isSuccessCreateTask)
+
     const [values, setValues] = useState({
         title: defaultValueTitle,
         description: defaultValueDescription,
@@ -49,7 +51,6 @@ const FormModal = ({ modalTitle, handleTask, setIsShowModal, taskForEdit }) => {
                         date: values.date.toISOString().slice(0, 10)
                     }
                 )
-                setIsShowModal(false)
             } else {
                 handleTask({
                     _id: taskForEdit._id,
