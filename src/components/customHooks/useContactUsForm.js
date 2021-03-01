@@ -11,6 +11,7 @@ const useContactUsForm = (callback, contactUsFormValidate) => {
             callback(values)
             setValues({ name: '', email: '', message: '' })
         }
+        // eslint-disable-next-line
     }, [errors, isSubmit])
 
     const handleSubmit = (event) => {

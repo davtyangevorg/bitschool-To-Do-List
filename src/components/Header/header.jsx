@@ -12,7 +12,6 @@ import { SelectedTasksIdsLengthContext, IsShowAddNewTaskButtonContext } from '..
 
 const Header = () => {
 
-    // const { setIsShowAddTaskFormModal } = useContext(AddTaskModalContext)
     const { selectedTasksIdsLength } = useContext(SelectedTasksIdsLengthContext)
     const { isShowAddNewTaskButton } = useContext(IsShowAddNewTaskButtonContext)
 
