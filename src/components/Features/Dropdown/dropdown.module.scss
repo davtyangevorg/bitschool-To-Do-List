@@ -1,0 +1,60 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
+
+.dropdown{  
+    margin-right: 10px;
+    position: relative;
+    .buttonDiv{
+        @include standartFadedText;
+        position: relative;
+        cursor: pointer;
+        border:1px solid $muchFadedTextColor;
+        border-radius: 4px;
+        background-color: white;
+        transition: all .3s;
+        button{
+            height: 40px;
+            padding: 0px 10px 0px 30px;
+            @include buttonFunction ($bColor:white,$color:$fadedTextColor,$borderRadius:4px);
+        }
+        svg{
+            position: absolute;
+            left: 10px;
+            top:50%;
+            transform: translateY(-50%);
+        }
+        &:hover{
+            border: 1px solid #80cbff;
+        }
+    }
+    .optionsList{
+        @include standartText;
+        position: absolute;
+        right: 0;
+        z-index: 100;
+        padding: 10px 0;
+        width: 200px;
+        background-color: white;
+        border-radius: 4px;
+        box-shadow: -1px 1px 5px -2px rgba(0, 0, 0 , 32%);
+        .option{
+            position: relative;
+            padding: 8px 0 8px 15px;
+            cursor: pointer;
+            transition: all .3s;
+            &:hover{
+                background-color: rgba(0, 0, 0, 0.08);
+            }
+        }
+        .optionAfter::after{
+            width: 6px;
+            background: #0090FF;
+            height: 34px;
+            content: "";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+    }
+}

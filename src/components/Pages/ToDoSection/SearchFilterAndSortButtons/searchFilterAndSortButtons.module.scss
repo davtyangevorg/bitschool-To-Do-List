@@ -1,0 +1,17 @@
+@import '../../../../styles/variables';
+@import '../../../../styles/mixins';
+
+.headerLeft{
+    height: 40px;
+    display: flex;
+    .searchBtn{
+        height: 42px;
+        @include standartFadedText;
+        padding: 0 10px;
+        @include buttonFunction ($bColor:$greenButtonBackgroundColor,$color:white,$borderRadius:4px);
+        transition: all .3s;
+        &:hover{
+            background-color: $greenButtonHoverBackgroundColor;
+        }
+    }
+}

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { getTask, editTask } from '../../../redux/singleTask-reducer.js'
+import { getTask, editTask,deleteSingleTask } from '../../../redux/singleTask-reducer.js'
 
 import { Container, Row, Col } from 'react-bootstrap'
 import styles from './singleTask.module.scss'
@@ -26,29 +26,7 @@ const SingleTask = (props) => {
     }, [taskId, dispatch])
 
     const deleteTask = () => {
-        fetch(`http://localhost:3001/task/${taskId}`, {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-            }
-        })
-            .then(async response => {
-                const res = await response.json()
-
-                if (response.status >= 400 && response.status < 600) {
-                    if (res.error) {
-                        throw res.error
-                    } else {
-                        throw new Error('Error')
-                    }
-                }
-
-                props.history.push('/')
-
-            })
-            .catch(error => {
-                console.log(error)
-            })
+        dispatch(deleteSingleTask(taskId))
     }
 
     const togleIsShowEditTaskForm = () => {

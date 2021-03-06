@@ -16,7 +16,7 @@ const initalState = {
     isShowEditTaskFormModal: false,
     loading: false,
     successMessage: null,
-    errorMessage:null
+    errorMessage: null
 }
 
 const toDoReducer = (state = initalState, action) => {
@@ -26,14 +26,14 @@ const toDoReducer = (state = initalState, action) => {
                 ...state,
                 loading: true,
                 successMessage: null,
-                errorMessage:null
+                errorMessage: null
             }
         }
         case ERROR: {
             return {
                 ...state,
                 loading: false,
-                errorMessage:action.error
+                errorMessage: action.error
             }
         }
         case SET_IS_SHOW_ADD_TASK_FORM_MODAL: {
@@ -101,7 +101,7 @@ const toDoReducer = (state = initalState, action) => {
 
 const errorAction = (error) => {
     return {
-        type: ERROR,error:error
+        type: ERROR, error: error
     }
 }
 export const setIsShowAddTaskFormModalAction = (status) => {
@@ -141,10 +141,18 @@ const editTaskAction = (res) => {
     }
 }
 
-export const getTasks = () => {
+export const getTasks = (queryParams = {}) => {
+
+    function getQueryString(obj) {
+        return Object.entries(obj)
+            .map(([key, value]) => `${key}=${value}`)
+            .join('&')
+    }
+    const query = getQueryString(queryParams)
+
     return dispatch => {
-        dispatch({type: PENDING})
-        myFetch('http://localhost:3001/task')
+        dispatch({ type: PENDING })
+        myFetch(`http://localhost:3001/task?${query}`)
             .then(res => {
                 dispatch(getTaskAction(res))
             })
@@ -156,7 +164,7 @@ export const getTasks = () => {
 }
 export const createTask = (newTask) => {
     return dispatch => {
-        dispatch({type: PENDING})
+        dispatch({ type: PENDING })
         myFetch('http://localhost:3001/task', 'POST', newTask)
             .then(res => {
                 dispatch(createTaskAction(res))
@@ -169,7 +177,7 @@ export const createTask = (newTask) => {
 }
 export const deleteTask = (taskId) => {
     return dispatch => {
-        dispatch({type: PENDING})
+        dispatch({ type: PENDING })
         myFetch(`http://localhost:3001/task/${taskId}`, 'DELETE')
             .then(res => {
                 dispatch(deleteTaskAction(taskId))
@@ -182,7 +190,7 @@ export const deleteTask = (taskId) => {
 }
 export const deleteSelectedTasks = (selectedTasksIds) => {
     return dispatch => {
-        dispatch({type: PENDING})
+        dispatch({ type: PENDING })
         myFetch(`http://localhost:3001/task`, 'PATCH', { tasks: [...selectedTasksIds] })
             .then(res => {
                 dispatch(deleteSelectedTasksAction(selectedTasksIds))
@@ -195,7 +203,7 @@ export const deleteSelectedTasks = (selectedTasksIds) => {
 }
 export const editTask = (editedTask) => {
     return dispatch => {
-        dispatch({type: PENDING})
+        dispatch({ type: PENDING })
         myFetch(`http://localhost:3001/task/${editedTask._id}`, 'PUT', editedTask)
             .then(res => {
                 dispatch(editTaskAction(res))

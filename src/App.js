@@ -3,7 +3,7 @@ import './App.css'
 
 import { useSelector } from 'react-redux'
 
-import { BrowserRouter } from 'react-router-dom'
+import { Router } from 'react-router'
 
 import LeftSidbar from './components/LeftSidbar/leftSidbar.jsx'
 import Home from './components/Home/home.jsx'
@@ -12,6 +12,9 @@ import Loader from './components/Features/Loading/loader.jsx'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { createBrowserHistory } from 'history'
+
+const history=createBrowserHistory()
 
 function App() {
 
@@ -48,11 +51,11 @@ function App() {
 
   return (
     <div className="App">
-      <BrowserRouter>
+      <Router history={history}>
         <LeftSidbar />
         <Home />
         {(loading ||singleTaskLoading) && <Loader />}
-      </BrowserRouter>
+      </Router>
       <ToastContainer />
     </div>
   );

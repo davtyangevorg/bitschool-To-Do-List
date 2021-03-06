@@ -1,7 +1,11 @@
 import myFetch from '../Api/myFetch.js'
+import { createBrowserHistory } from 'history'
+
+const history=createBrowserHistory()
 
 const GET_TASK = 'to-do-list/singleTaskReducer/GET_TASK'
 const EDIT_TASK = 'to-do-list/singleTaskReducer/EDIT_TASK'
+const DELETE_TASK='to-do-list/singleTaskReducer/DELETE_TASK'
 const PENDING = 'to-do-list/singleTaskReducer/PENDING'
 
 const initalState = {
@@ -31,6 +35,12 @@ const singleTaskReducer = (state = initalState, action) => {
                 singleTaskLoading:false
             }
         }
+        case DELETE_TASK: {
+            return {
+                ...state,
+                singleTaskLoading:false
+            }
+        }
         default: {
             return state
         }
@@ -56,6 +66,9 @@ export const getTask = (taskId) => {
             .then(res => {
                 dispatch(getTaskAction(res))
             })
+            .catch(error => {
+                console.log(error)
+            })
     }
 }
 export const editTask = (editedTask) => {
@@ -65,6 +78,24 @@ export const editTask = (editedTask) => {
             .then(res => {
                 dispatch(editTaskAction(res))
             })
+            .catch(error => {
+                console.log(error)
+            })
     }
 }
+export const deleteSingleTask = (taskId) => {
+    return dispatch => {
+        dispatch({type: PENDING})
+        myFetch(`http://localhost:3001/task/${taskId}`, 'DELETE')
+            .then(res => {
+                dispatch({type:DELETE_TASK})
+                history.push('/')
+            })
+            .catch(error => {
+                console.log(error)
+            })
+    }
+}
+
 export default singleTaskReducer
+
