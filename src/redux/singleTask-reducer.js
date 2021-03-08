@@ -1,6 +1,8 @@
 import myFetch from '../Api/myFetch.js'
 import { createBrowserHistory } from 'history'
 
+const apiHost=process.env.REACT_APP_API_HOST
+
 const history=createBrowserHistory()
 
 const GET_TASK = 'to-do-list/singleTaskReducer/GET_TASK'
@@ -62,7 +64,7 @@ const editTaskAction = (res) => {
 export const getTask = (taskId) => {
     return dispatch => {
         dispatch({type: PENDING})
-        myFetch(`http://localhost:3001/task/${taskId}`)
+        myFetch(`${apiHost}/task/${taskId}`)
             .then(res => {
                 dispatch(getTaskAction(res))
             })
@@ -74,7 +76,7 @@ export const getTask = (taskId) => {
 export const editTask = (editedTask) => {
     return dispatch => {
         dispatch({type: PENDING})
-        myFetch(`http://localhost:3001/task/${editedTask._id}`, 'PUT', editedTask)
+        myFetch(`${apiHost}/task/${editedTask._id}`, 'PUT', editedTask)
             .then(res => {
                 dispatch(editTaskAction(res))
             })
@@ -86,7 +88,7 @@ export const editTask = (editedTask) => {
 export const deleteSingleTask = (taskId) => {
     return dispatch => {
         dispatch({type: PENDING})
-        myFetch(`http://localhost:3001/task/${taskId}`, 'DELETE')
+        myFetch(`${apiHost}/task/${taskId}`, 'DELETE')
             .then(res => {
                 dispatch({type:DELETE_TASK})
                 history.push('/')

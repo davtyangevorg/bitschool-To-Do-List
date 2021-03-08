@@ -1,5 +1,7 @@
 import myFetch from '../Api/myFetch.js'
 
+const apiHost=process.env.REACT_APP_API_HOST
+
 const GET_TASKS = 'to-do-list/toDoReducer/GET_TASKS'
 const CREATE_TASK = 'to-do-list/toDoReducer/CREATE_TASK'
 const DELETE_TASK = 'to-do-list/toDoReducer/DELETE_TASK'
@@ -152,7 +154,7 @@ export const getTasks = (queryParams = {}) => {
 
     return dispatch => {
         dispatch({ type: PENDING })
-        myFetch(`http://localhost:3001/task?${query}`)
+        myFetch(`${apiHost}/task?${query}`)
             .then(res => {
                 dispatch(getTaskAction(res))
             })
@@ -165,7 +167,7 @@ export const getTasks = (queryParams = {}) => {
 export const createTask = (newTask) => {
     return dispatch => {
         dispatch({ type: PENDING })
-        myFetch('http://localhost:3001/task', 'POST', newTask)
+        myFetch(`${apiHost}/task`, 'POST', newTask)
             .then(res => {
                 dispatch(createTaskAction(res))
             })
@@ -178,7 +180,7 @@ export const createTask = (newTask) => {
 export const deleteTask = (taskId) => {
     return dispatch => {
         dispatch({ type: PENDING })
-        myFetch(`http://localhost:3001/task/${taskId}`, 'DELETE')
+        myFetch(`${apiHost}/task/${taskId}`, 'DELETE')
             .then(res => {
                 dispatch(deleteTaskAction(taskId))
             })
@@ -191,7 +193,7 @@ export const deleteTask = (taskId) => {
 export const deleteSelectedTasks = (selectedTasksIds) => {
     return dispatch => {
         dispatch({ type: PENDING })
-        myFetch(`http://localhost:3001/task`, 'PATCH', { tasks: [...selectedTasksIds] })
+        myFetch(`${apiHost}/task`, 'PATCH', { tasks: [...selectedTasksIds] })
             .then(res => {
                 dispatch(deleteSelectedTasksAction(selectedTasksIds))
             })
@@ -204,7 +206,7 @@ export const deleteSelectedTasks = (selectedTasksIds) => {
 export const editTask = (editedTask) => {
     return dispatch => {
         dispatch({ type: PENDING })
-        myFetch(`http://localhost:3001/task/${editedTask._id}`, 'PUT', editedTask)
+        myFetch(`${apiHost}/task/${editedTask._id}`, 'PUT', editedTask)
             .then(res => {
                 dispatch(editTaskAction(res))
             })
