@@ -2,15 +2,15 @@ import React, { useState, useRef, useEffect, memo } from 'react'
 
 import styles from './dropdown.module.scss'
 
-import {textTruncate} from '../../../utils.js'
+import { textTruncate } from '../../../utils.js'
 
 const Dropdown = memo(({ options, title, selected, setSelected, Icon }) => {
-    
+
     const [isOpenList, setIsOpenList] = useState(false)
     const wrapperRef = useRef()
 
     const handleSelect = (option) => {
-        setSelected(option)  
+        setSelected(option)
     }
 
     useOutsideAlerter(wrapperRef, setIsOpenList)
@@ -19,7 +19,7 @@ const Dropdown = memo(({ options, title, selected, setSelected, Icon }) => {
         <div className={styles.dropdown} onClick={() => { setIsOpenList(!isOpenList) }} ref={wrapperRef}>
             <div className={styles.buttonDiv}>
                 <button>
-                    {title} By : {textTruncate(selected.label,8)}
+                    {title} By : {textTruncate(selected.label, 8)}
                 </button>
                 <Icon />
             </div>
