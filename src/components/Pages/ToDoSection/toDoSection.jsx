@@ -11,7 +11,6 @@ import SearchFilterAndSortButtons from './SearchFilterAndSortButtons/searchFilte
 import { ListOrGridSwitchContext, IsShowAddNewTaskButtonContext } from '../../../context.js'
 
 
-
 const ToDoSection = () => {
 
     const [switchName, setSwitchName] = useState('list')
