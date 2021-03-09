@@ -1,4 +1,4 @@
-import React, { useState,useEffect,useContext } from 'react'
+import React, { useState, useEffect, useContext } from 'react'
 
 import styles from './toDoSection.module.scss'
 import { Container, Row } from 'react-bootstrap'
@@ -6,8 +6,10 @@ import { Container, Row } from 'react-bootstrap'
 import { IoGrid, FaListUl } from 'react-icons/all'
 
 import ToDoListFoundation from './ToDoListFoundation/toDoListFoundation.jsx'
+import SearchFilterAndSortButtons from './SearchFilterAndSortButtons/searchFilterAndSortButtons.jsx'
 
 import { ListOrGridSwitchContext, IsShowAddNewTaskButtonContext } from '../../../context.js'
+
 
 const ToDoSection = () => {
 
@@ -39,7 +41,7 @@ const ToDoSection = () => {
     return (
         <>
             <Container fluid style={{ padding: '25px 45px' }}>
-                <Row>
+                <Row style={{display:'flex',justifyContent:'space-between'}}>
                     <div className={styles.tasksStylesBtns}>
                         <div
                             className={styles.btnDiv}
@@ -56,6 +58,7 @@ const ToDoSection = () => {
                             <button className={`${styles.gridBtn} ${isActiceGridBtn && styles.buttonActive}`}>Grid</button>
                         </div>
                     </div>
+                    <SearchFilterAndSortButtons />
                 </Row>
                 <ListOrGridSwitchContext.Provider value={switchName}>
                     <ToDoListFoundation />

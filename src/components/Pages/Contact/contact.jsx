@@ -12,7 +12,7 @@ import useContactUsForm from '../../customHooks/useContactUsForm.js'
 import contactUsFormValidate from '../../Features/contactUsFormValidate.js'
 
 const Contact = () => {
-
+    console.log('contact page')
     const dispatch = useDispatch()
 
     const { values, handleSubmit, handleChange, errors } = useContactUsForm(callback, contactUsFormValidate)

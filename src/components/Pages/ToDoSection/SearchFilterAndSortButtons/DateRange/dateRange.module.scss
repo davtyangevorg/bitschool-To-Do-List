@@ -1,0 +1,21 @@
+@import '../../../../../styles/mixins';
+@import '../../../../../styles/variables';
+
+.date{
+    cursor: pointer;
+    margin-right: 10px;
+    background-color: white;
+    width: 187px;
+    height: 42px;   
+    border:1px solid $muchFadedTextColor;
+    border-radius: 5px;
+    outline: none;
+    position: relative;
+    span{
+        position: absolute;
+        @include standartFadedText;
+        left: 50%;
+        top:50%;
+        transform: translate(-50%,-50%);
+    }
+}
