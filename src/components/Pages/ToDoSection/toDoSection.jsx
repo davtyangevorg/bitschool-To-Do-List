@@ -41,7 +41,7 @@ const ToDoSection = () => {
     return (
         <>
             <Container fluid style={{ padding: '25px 45px' }}>
-                <Row style={{display:'flex',justifyContent:'space-between'}}>
+                <Row style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px' }}>
                     <div className={styles.tasksStylesBtns}>
                         <div
                             className={styles.btnDiv}

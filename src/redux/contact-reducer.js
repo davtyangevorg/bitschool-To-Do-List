@@ -1,6 +1,7 @@
 import myFetch from '../Api/myFetch.js'
 
 //const SEND_CONTACT_MESSAGE='to-do-list/contactReducer/SEND_CONTACT_MESSAGE'
+const apiHost=process.env.REACT_APP_API_HOST
 
 const initalState={
 
@@ -18,7 +19,7 @@ export default contactReducer
 
 export const sendMessage = (data) => {
     return dispatch => {
-        myFetch(`http://localhost:3001/form`,'POST',data)
+        myFetch(`${apiHost}/form`,'POST',data)
             .then(res => {
                 console.log(res)
             })
