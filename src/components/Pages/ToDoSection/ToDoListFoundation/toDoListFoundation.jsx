@@ -4,20 +4,19 @@ import { Row, Col } from 'react-bootstrap'
 import styles from './toDoListFoundation.module.scss'
 
 import { connect } from 'react-redux'
-import { getTasks, createTask, deleteTask, deleteSelectedTasks, editTask } from '../../../../redux/toDo-reducer.js'
+import { getTasks, createTask, deleteTask, deleteSelectedTasks, editTask ,setIsShowAddTaskFormModalAction,setIsShowEditTaskFormModalAction} from '../../../../redux/toDo-reducer.js'
 
 import FormModal from '../FormModal/formModal.jsx'
 
 import Tasks from '../Tasks/tasks.jsx'
 import IsDeleteSelectedTasksConfirm from '../../../Features/Confirm/confirm.jsx'
 
-import { SelectedTasksIdsLengthContext, AddTaskModalContext } from '../../../../context.js'
+import { SelectedTasksIdsLengthContext } from '../../../../context.js'
 
 class ToDoList extends PureComponent {
     state = {
         selectedTasksIds: new Set(),
         isShowConfirm: false,
-        isShowEditeTaskForm: false,
         taskForEdit: null
     }
 
@@ -67,36 +66,26 @@ class ToDoList extends PureComponent {
         this.setState({
             taskForEdit: task
         })
-        this.togleIsShowEditTaskForm()
-    }
-    togleIsShowEditTaskForm = () => {
-        this.setState({
-            isShowEditeTaskForm: !this.state.isShowEditeTaskForm
-        })
+        this.props.setIsShowEditTaskFormModal(true)
     }
 
     editTask = (editedTask) => {
         this.props.editTask(editedTask)
-        this.togleIsShowEditTaskForm()
     }
 
 
     render() {
         return (
             <>
-                <AddTaskModalContext.Consumer>
-                    {({ isShowAddTaskFormModal, setIsShowAddTaskFormModal }) => (
-                        isShowAddTaskFormModal && <FormModal
-                            modalTitle='Add Task'
-                            handleTask={this.createTask}
-                            setIsShowModal={setIsShowAddTaskFormModal}
-                        />
-                    )}
-                </AddTaskModalContext.Consumer>
-                {this.state.isShowEditeTaskForm && <FormModal
+                {this.props.isShowAddTaskFormModal && <FormModal
+                    modalTitle='Add Task'
+                    handleTask={this.createTask}
+                    setIsShowModal={this.props.setIsShowAddTaskFormModal}
+                />}
+                {this.props.isShowEditTaskFormModal && <FormModal
                     modalTitle='Edit Task'
                     handleTask={this.editTask}
-                    setIsShowModal={this.togleIsShowEditTaskForm}
+                    setIsShowModal={this.props.setIsShowEditTaskFormModal}
                     taskForEdit={this.state.taskForEdit}
                 />}
 
@@ -138,7 +127,9 @@ class ToDoList extends PureComponent {
 const mapStateToProps = (state) => {
 
     return {
-        tasks: state.toDoReducer.tasks
+        tasks: state.toDoReducer.tasks,
+        isShowAddTaskFormModal: state.toDoReducer.isShowAddTaskFormModal,
+        isShowEditTaskFormModal: state.toDoReducer.isShowEditTaskFormModal
     }
 }
 const mapDistpatchToProps = (dispatch) => {
@@ -158,6 +149,12 @@ const mapDistpatchToProps = (dispatch) => {
         },
         editTask: (editedTask) => {
             dispatch(editTask(editedTask))
+        },
+        setIsShowAddTaskFormModal:status=>{
+            dispatch(setIsShowAddTaskFormModalAction(status))
+        },
+        setIsShowEditTaskFormModal:status=>{
+            dispatch(setIsShowEditTaskFormModalAction(status))
         }
     }
 }

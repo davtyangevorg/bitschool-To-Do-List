@@ -1,17 +1,22 @@
 import React, { useContext } from 'react'
 
+import {useDispatch} from 'react-redux'
+
 import { NavLink } from 'react-router-dom'
 
 import styles from './header.module.scss'
 import { MdAddCircle } from 'react-icons/all'
 
-import { AddTaskModalContext, SelectedTasksIdsLengthContext, IsShowAddNewTaskButtonContext } from '../../context.js'
+import {setIsShowAddTaskFormModalAction} from '../../redux/toDo-reducer.js'
+import { SelectedTasksIdsLengthContext, IsShowAddNewTaskButtonContext } from '../../context.js'
 
 const Header = () => {
 
-    const { setIsShowAddTaskFormModal } = useContext(AddTaskModalContext)
+    // const { setIsShowAddTaskFormModal } = useContext(AddTaskModalContext)
     const { selectedTasksIdsLength } = useContext(SelectedTasksIdsLengthContext)
     const { isShowAddNewTaskButton } = useContext(IsShowAddNewTaskButtonContext)
+
+    const dispatch = useDispatch()
     
     return (
         <div className={styles.header}>
@@ -19,7 +24,7 @@ const Header = () => {
                 <div className={styles.header_top_left}>header top</div>
                 {isShowAddNewTaskButton && <div>
                     <button
-                        onClick={() => { setIsShowAddTaskFormModal(true) }}
+                        onClick={() => { dispatch(setIsShowAddTaskFormModalAction(true)) }}
                         className={styles.addTaskBtn}
                         disabled={!!selectedTasksIdsLength}
                     >Add New Task
