@@ -2,6 +2,8 @@ import myFetch from '../Api/myFetch.js'
 
 import {history} from './history.js'
 
+const apiHost=process.env.REACT_APP_API_HOST
+
 const GET_TASK = 'to-do-list/singleTaskReducer/GET_TASK'
 const EDIT_TASK = 'to-do-list/singleTaskReducer/EDIT_TASK'
 const DELETE_TASK='to-do-list/singleTaskReducer/DELETE_TASK'
