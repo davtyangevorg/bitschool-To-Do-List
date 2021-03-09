@@ -1,6 +1,8 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk';
 
+import logger from 'redux-logger'
+
 import toDoReducer from './toDo-reducer.js'
 import singleTaskReducer from './singleTask-reducer.js'
 import contactReducer from './contact-reducer.js'
@@ -11,6 +13,6 @@ const redusers = combineReducers({
     contactReducer
 })
 
-const store = createStore(redusers, applyMiddleware(thunk))
+const store = createStore(redusers, applyMiddleware(thunk,logger))
 
 export default store

@@ -1,8 +1,8 @@
 import React from 'react'
 
-import styles from './loaderModal.module.scss'
+import styles from './loader.module.scss'
 
-const LoaderModal = () => {
+const Loader = () => {
     return (
         <div className={styles.modal}>
             <div className={styles.loader}></div>
@@ -10,4 +10,4 @@ const LoaderModal = () => {
     )
 }
 
-export default LoaderModal
+export default Loader
