@@ -14,7 +14,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrash, faEdit } from '@fortawesome/free-solid-svg-icons'
 
 import { changeTaskStatus } from '../../../../redux/toDo-reducer.js'
-import { IoConstructOutline } from 'react-icons/io5'
 
 const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTaskForEdit }) => {
 
