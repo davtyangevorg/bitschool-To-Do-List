@@ -1,19 +1,20 @@
 import myFetch from '../Api/myFetch.js'
 
-import {history} from './history.js'
+import { history } from './history.js'
 
-const apiHost=process.env.REACT_APP_API_HOST
+const apiHost = process.env.REACT_APP_API_HOST
 
 const GET_TASK = 'to-do-list/singleTaskReducer/GET_TASK'
 const EDIT_TASK = 'to-do-list/singleTaskReducer/EDIT_TASK'
-const DELETE_TASK='to-do-list/singleTaskReducer/DELETE_TASK'
+const DELETE_TASK = 'to-do-list/singleTaskReducer/DELETE_TASK'
+const CHANGE_STATUS = 'to-do-list/singleTaskReducer/CHANGE_STATUS'
 const PENDING = 'to-do-list/singleTaskReducer/PENDING'
 const ERROR = 'to-do-list/singleTaskReducer/ERROR'
 
 const initalState = {
     task: null,
     singleTaskLoading: false,
-    successMessage:null,
+    successMessage: null,
     errorMessage: null
 }
 
@@ -23,7 +24,7 @@ const singleTaskReducer = (state = initalState, action) => {
             return {
                 ...state,
                 singleTaskLoading: true,
-                successMessage:null,
+                successMessage: null,
                 errorMessage: null
             }
         }
@@ -38,22 +39,30 @@ const singleTaskReducer = (state = initalState, action) => {
             return {
                 ...state,
                 task: action.task,
-                singleTaskLoading:false
+                singleTaskLoading: false
             }
         }
         case EDIT_TASK: {
             return {
                 ...state,
                 task: action.editedTask,
-                singleTaskLoading:false,
+                singleTaskLoading: false,
                 successMessage: 'Task was successfully edited'
             }
         }
         case DELETE_TASK: {
             return {
                 ...state,
-                singleTaskLoading:false,
+                singleTaskLoading: false,
                 successMessage: 'Task was successfully deleted'
+            }
+        }
+        case CHANGE_STATUS: {
+            return {
+                ...state,
+                singleTaskLoading: false,
+                successMessage: 'Status was successfully changed',
+                task: action.changedTask
             }
         }
         default: {
@@ -77,10 +86,15 @@ const editTaskAction = (res) => {
         type: EDIT_TASK, editedTask: res
     }
 }
+const changeStatusAction = (res) => {
+    return {
+        type: CHANGE_STATUS, changedTask: res
+    }
+}
 
 export const getTask = (taskId) => {
     return dispatch => {
-        dispatch({type: PENDING})
+        dispatch({ type: PENDING })
         myFetch(`${apiHost}/task/${taskId}`)
             .then(res => {
                 dispatch(getTaskAction(res))
@@ -93,7 +107,7 @@ export const getTask = (taskId) => {
 }
 export const editTask = (editedTask) => {
     return dispatch => {
-        dispatch({type: PENDING})
+        dispatch({ type: PENDING })
         myFetch(`${apiHost}/task/${editedTask._id}`, 'PUT', editedTask)
             .then(res => {
                 dispatch(editTaskAction(res))
@@ -106,11 +120,27 @@ export const editTask = (editedTask) => {
 }
 export const deleteSingleTask = (taskId) => {
     return dispatch => {
-        dispatch({type: PENDING})
+        dispatch({ type: PENDING })
         myFetch(`${apiHost}/task/${taskId}`, 'DELETE')
             .then(res => {
-                dispatch({type:DELETE_TASK})
+                dispatch({ type: DELETE_TASK })
                 history.push('/')
+            })
+            .catch(error => {
+                console.log(error)
+                dispatch(errorAction(error.message))
+            })
+    }
+}
+
+export const changeTaskStatus = (taskId, status) => {
+    const putStatusProperty = status === 'active' ? 'done' : 'active'
+
+    return dispatch => {
+        dispatch({ type: PENDING })
+        myFetch(`${apiHost}/task/${taskId}`, 'PUT', { status: putStatusProperty })
+            .then(res => {
+                dispatch(changeStatusAction(res))
             })
             .catch(error => {
                 console.log(error)

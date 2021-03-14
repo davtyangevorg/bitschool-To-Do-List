@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
-import { getTask, editTask,deleteSingleTask } from '../../../redux/singleTask-reducer.js'
+import { getTask, editTask, deleteSingleTask,changeTaskStatus } from '../../../redux/singleTask-reducer.js'
 
 import { Container, Row, Col } from 'react-bootstrap'
 import styles from './singleTask.module.scss'
@@ -37,6 +37,10 @@ const SingleTask = (props) => {
         togleIsShowEditTaskForm()
     }
 
+    const changeStatus=(taskId,status)=>{
+        dispatch(changeTaskStatus(taskId,status))
+    }
+
     return (
         <Container>
             <Row>
@@ -48,7 +52,14 @@ const SingleTask = (props) => {
                                 <div className={styles.task_descriprion}>{task.description}</div>
                                 <div className={styles.task_footer}>
                                     <div>Date: {task.date.slice(0, 10)}</div>
+                                    <p>Created : {task.created_at.slice(0, 10)}</p>
                                     <div>
+                                        <button
+                                            className={styles.statusBtn}
+                                            onClick={() => changeStatus(task._id, task.status)}
+                                        >
+                                            {task.status}
+                                        </button>
                                         <button
                                             className={styles.task_editBtn}
                                             onClick={() => { togleIsShowEditTaskForm() }}
