@@ -1,6 +1,6 @@
 import myFetch from '../Api/myFetch.js'
 
-const apiHost=process.env.REACT_APP_API_HOST
+const apiHost = process.env.REACT_APP_API_HOST
 
 const GET_TASKS = 'to-do-list/toDoReducer/GET_TASKS'
 const CREATE_TASK = 'to-do-list/toDoReducer/CREATE_TASK'
@@ -9,6 +9,7 @@ const DELETE_SELECTED_TASK = 'to-do-list/toDoReducer/DELETE_SELECTED_TASK'
 const EDIT_TASK_ACTION = 'to-do-list/toDoReducer/EDIT_TASK_ACTION'
 const SET_IS_SHOW_ADD_TASK_FORM_MODAL = 'to-do-list/toDoReducer/SET_IS_SHOW_ADD_TASK_FORM_MODAL'
 const SET_IS_SHOW_EDIT_TASK_FORM_MODAL = 'to-do-list/toDoReducer/SET_IS_SHOW_EDIT_TASK_FORM_MODAL'
+const CHANGE_STATUS = 'to-do-list/toDoReducer/CHANGE_STATUS'
 const PENDING = 'to-do-list/toDoReducer/PENDING'
 const ERROR = 'to-do-list/toDoReducer/ERROR'
 
@@ -96,6 +97,14 @@ const toDoReducer = (state = initalState, action) => {
                 successMessage: 'Task was successfully edited'
             }
         }
+        case CHANGE_STATUS: {
+            return {
+                ...state,
+                loading: false,
+                successMessage: 'Status was successfully changed',
+                tasks: state.tasks.map(task => task._id === action.changedTask._id ? action.changedTask : task)
+            }
+        }
         default: return state
     }
 }
@@ -140,6 +149,11 @@ const deleteSelectedTasksAction = (selectedTasksIds) => {
 const editTaskAction = (res) => {
     return {
         type: EDIT_TASK_ACTION, editedTask: res
+    }
+}
+const changeStatus = (res) => {
+    return {
+        type: CHANGE_STATUS, changedTask: res
     }
 }
 
@@ -209,6 +223,21 @@ export const editTask = (editedTask) => {
         myFetch(`${apiHost}/task/${editedTask._id}`, 'PUT', editedTask)
             .then(res => {
                 dispatch(editTaskAction(res))
+            })
+            .catch(error => {
+                console.log(error)
+                dispatch(errorAction(error.message))
+            })
+    }
+}
+export const changeTaskStatus = (taskId, status) => {
+    const putStatusProperty = status === 'active' ? 'done' : 'active'
+
+    return dispatch => {
+        dispatch({ type: PENDING })
+        myFetch(`${apiHost}/task/${taskId}`, 'PUT', { status: putStatusProperty })
+            .then(res => {
+                dispatch(changeStatus(res))
             })
             .catch(error => {
                 console.log(error)

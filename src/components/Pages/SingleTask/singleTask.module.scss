@@ -18,6 +18,14 @@
     .task_footer{
         display: flex;
         justify-content: space-between;
+        .statusBtn{
+            // position: absolute;
+            // bottom: 15px;
+            padding: 8px;
+            @include buttonFunction ($bColor:#FC7150,$color:white,$border:0,$borderRadius:5px);
+            @include standartText;
+            color: white;
+        }
     }
     .task_deleteBtn{
         @include buttonFunction ($bColor:$deleteButtonBackgroundColor,$color:white,$border:0,$borderRadius:5px);
@@ -38,6 +46,7 @@
         padding: 5px 10px;
         transition: all .2s;
         margin-right: 20px;
+        margin-left: 20px;
         &:hover{
             background-color: $greenButtonHoverBackgroundColor;
         }

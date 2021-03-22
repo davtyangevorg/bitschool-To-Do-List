@@ -2,7 +2,7 @@
 @import '../../../../styles/variables';
 
 .task{
-    height: 200px;
+    height: 230px;
     padding: 15px 20px;
     position: relative;
     background-color: white;
@@ -52,5 +52,13 @@
             background-color: #cccccc;
             color: #666666;
         }
+    }
+    .statusBtn{
+        position: absolute;
+        bottom: 15px;
+        padding: 5px;
+        @include buttonFunction ($bColor:#FC7150,$color:white,$border:0,$borderRadius:5px);
+        @include standartText;
+        color: white;
     }
 }

@@ -13,6 +13,11 @@ const redusers = combineReducers({
     contactReducer
 })
 
-const store = createStore(redusers, applyMiddleware(thunk,logger))
+const applyMiddlewareParams = [thunk]
+if (process.env.NODE_ENV === 'development') {
+    applyMiddlewareParams.push(logger)
+}
+
+const store = createStore(redusers, applyMiddleware(...applyMiddlewareParams))
 
 export default store
