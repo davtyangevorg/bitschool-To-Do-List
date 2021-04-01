@@ -20,8 +20,5 @@ export default contactReducer
 export const sendMessage = (data) => {
     return dispatch => {
         myFetch(`${apiHost}/form`,'POST',data)
-            .then(res => {
-                console.log(res)
-            })
     }
 }
