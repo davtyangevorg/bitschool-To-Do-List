@@ -35,6 +35,8 @@ const Header = () => {
                 <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/'>Home</NavLink>
                 <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/about'>About</NavLink>
                 <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/contact'>Contact</NavLink>
+                <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/sign-up'>Sign Up</NavLink>
+                <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/sign-in'>Sign In</NavLink>
             </div>
         </div >
     )

@@ -1,7 +1,7 @@
 import { createStore, applyMiddleware, combineReducers } from 'redux'
 import thunk from 'redux-thunk';
 
-import logger from 'redux-logger'
+//import logger from 'redux-logger'
 
 import toDoReducer from './toDo-reducer.js'
 import singleTaskReducer from './singleTask-reducer.js'
@@ -14,9 +14,9 @@ const redusers = combineReducers({
 })
 
 const applyMiddlewareParams = [thunk]
-if (process.env.NODE_ENV === 'development') {
-    applyMiddlewareParams.push(logger)
-}
+// if (process.env.NODE_ENV === 'development') {
+//     applyMiddlewareParams.push(logger)
+// }
 
 const store = createStore(redusers, applyMiddleware(...applyMiddlewareParams))
 

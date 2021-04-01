@@ -173,7 +173,6 @@ export const getTasks = (queryParams = {}) => {
                 dispatch(getTaskAction(res))
             })
             .catch(error => {
-                console.log(error)
                 dispatch(errorAction(error.message))
             })
     }
@@ -186,7 +185,6 @@ export const createTask = (newTask) => {
                 dispatch(createTaskAction(res))
             })
             .catch(error => {
-                console.log(error)
                 dispatch(errorAction(error.message))
             })
     }
@@ -199,7 +197,6 @@ export const deleteTask = (taskId) => {
                 dispatch(deleteTaskAction(taskId))
             })
             .catch(error => {
-                console.log(error)
                 dispatch(errorAction(error.message))
             })
     }
@@ -212,7 +209,6 @@ export const deleteSelectedTasks = (selectedTasksIds) => {
                 dispatch(deleteSelectedTasksAction(selectedTasksIds))
             })
             .catch(error => {
-                console.log(error)
                 dispatch(errorAction(error.message))
             })
     }
@@ -225,7 +221,6 @@ export const editTask = (editedTask) => {
                 dispatch(editTaskAction(res))
             })
             .catch(error => {
-                console.log(error)
                 dispatch(errorAction(error.message))
             })
     }
@@ -240,7 +235,6 @@ export const changeTaskStatus = (taskId, status) => {
                 dispatch(changeStatus(res))
             })
             .catch(error => {
-                console.log(error)
                 dispatch(errorAction(error.message))
             })
     }

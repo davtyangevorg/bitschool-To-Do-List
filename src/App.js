@@ -5,7 +5,6 @@ import { useSelector } from 'react-redux'
 
 import { Router } from 'react-router-dom'
 
-import LeftSidbar from './components/LeftSidbar/leftSidbar.jsx'
 import Home from './components/Home/home.jsx'
 
 import Loader from './components/Features/Loading/loader.jsx'
@@ -56,7 +55,6 @@ function App() {
   return (
     <div className="App">
       <Router history={history}>
-        <LeftSidbar />
         <Home />
         {(loading || singleTaskLoading) && <Loader />}
       </Router>

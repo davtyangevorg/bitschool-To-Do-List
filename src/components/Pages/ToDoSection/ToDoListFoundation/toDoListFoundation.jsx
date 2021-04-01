@@ -73,7 +73,6 @@ class ToDoList extends PureComponent {
         this.props.editTask(editedTask)
     }
 
-
     render() {
         return (
             <>

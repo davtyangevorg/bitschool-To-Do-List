@@ -12,6 +12,8 @@ import ToDoSection from '../Pages/ToDoSection/toDoSection.jsx'
 import About from '../Pages/About/about.jsx'
 import Contact from '../Pages/Contact/contact.jsx'
 import NotFound from '../Pages/NotFound/notFound.jsx'
+import SignUp from '../Pages/SignUp/signUp.jsx'
+import SignIn from '../Pages/SignIn/signIn.jsx'
 
 import { SelectedTasksIdsLengthContext, IsShowAddNewTaskButtonContext } from '../../context.js'
 
@@ -48,6 +50,16 @@ const Home = () => {
                             <Route
                                 path='/contact'
                                 component={Contact}
+                                exact
+                            />
+                            <Route
+                                path='/sign-up'
+                                component={SignUp}
+                                exact
+                            />
+                            <Route
+                                path='/sign-in'
+                                component={SignIn}
                                 exact
                             />
                             <Route

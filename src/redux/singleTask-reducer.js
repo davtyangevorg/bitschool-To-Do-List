@@ -100,7 +100,6 @@ export const getTask = (taskId) => {
                 dispatch(getTaskAction(res))
             })
             .catch(error => {
-                console.log(error)
                 dispatch(errorAction(error.message))
             })
     }
@@ -113,7 +112,6 @@ export const editTask = (editedTask) => {
                 dispatch(editTaskAction(res))
             })
             .catch(error => {
-                console.log(error)
                 dispatch(errorAction(error.message))
             })
     }
@@ -127,7 +125,6 @@ export const deleteSingleTask = (taskId) => {
                 history.push('/')
             })
             .catch(error => {
-                console.log(error)
                 dispatch(errorAction(error.message))
             })
     }
@@ -143,7 +140,6 @@ export const changeTaskStatus = (taskId, status) => {
                 dispatch(changeStatusAction(res))
             })
             .catch(error => {
-                console.log(error)
                 dispatch(errorAction(error.message))
             })
     }
