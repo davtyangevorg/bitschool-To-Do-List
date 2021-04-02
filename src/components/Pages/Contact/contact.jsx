@@ -2,8 +2,6 @@ import React from 'react'
 
 import { useDispatch } from 'react-redux'
 
-import { sendMessage } from '../../../redux/contact-reducer.js'
-
 import styles from './contact.module.scss'
 
 import { IoWarning } from 'react-icons/all'
@@ -11,13 +9,15 @@ import { IoWarning } from 'react-icons/all'
 import useContactUsForm from '../../customHooks/useContactUsForm.js'
 import contactUsFormValidate from '../../Features/contactUsFormValidate.js'
 
+import {sendMessage} from '../../../redux/toDo-reducer.js'
+
 const Contact = () => {
     const dispatch = useDispatch()
 
-    const { values, handleSubmit, handleChange, errors } = useContactUsForm(callback, contactUsFormValidate)
+    const { values, handleSubmit, handleChange, errors,nulledValues } = useContactUsForm(callback, contactUsFormValidate)
 
     function callback(data) {
-        dispatch(sendMessage(data))
+        dispatch(sendMessage(data,nulledValues))
     }
 
     return (

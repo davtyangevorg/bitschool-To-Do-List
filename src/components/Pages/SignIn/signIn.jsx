@@ -1,8 +1,8 @@
 import React from 'react'
 
-//import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 
-//import { sendMessage } from '../../../redux/contact-reducer.js'
+import {signIn} from '../../../redux/toDo-reducer.js'
 
 import styles from './signIn.module.scss'
 
@@ -12,13 +12,12 @@ import useSignInForm from '../../customHooks/useSignInForm.js'
 import signInFormValidate from '../../Features/signInFormValidate.js'
 
 const SignIn = () => {
-    //const dispatch = useDispatch()
+    const dispatch = useDispatch()
 
     const { values, handleSubmit, handleChange, errors } = useSignInForm(callback, signInFormValidate)
 
     function callback(data) {
-        console.log(data)
-        //dispatch(sendMessage(data))
+        dispatch(signIn(data))
     }
 
     return (

@@ -26,7 +26,6 @@ const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTa
     return (
         <Row style={{ overflowY: 'scroll', height: '700px' }}>
             {tasks.map(el => {
-
                 return <Col key={el._id} md={6} lg={4} xl={3} >
                     <div className={styles.task} >
                         <input
@@ -41,6 +40,7 @@ const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTa
                         <p>{textTruncate(el.description, 20)}</p>
                         <p>{el.date.slice(0, 10)}</p>
                         <p>Created : {el.created_at.slice(0, 10)}</p>
+                        <p>Status : {el.status}</p>
                         <button
                             onClick={() => { getTaskForEdit(el) }}
                             className={styles.task_editBtn}

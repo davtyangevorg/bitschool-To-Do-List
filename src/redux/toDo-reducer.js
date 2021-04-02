@@ -1,4 +1,8 @@
-import myFetch from '../Api/myFetch.js'
+import myFetch, { myFetchWithoutToken } from '../Api/myFetch.js'
+
+import { history } from './history.js'
+
+import { checkLoginStatus } from '../utils.js'
 
 const apiHost = process.env.REACT_APP_API_HOST
 
@@ -10,8 +14,12 @@ const EDIT_TASK_ACTION = 'to-do-list/toDoReducer/EDIT_TASK_ACTION'
 const SET_IS_SHOW_ADD_TASK_FORM_MODAL = 'to-do-list/toDoReducer/SET_IS_SHOW_ADD_TASK_FORM_MODAL'
 const SET_IS_SHOW_EDIT_TASK_FORM_MODAL = 'to-do-list/toDoReducer/SET_IS_SHOW_EDIT_TASK_FORM_MODAL'
 const CHANGE_STATUS = 'to-do-list/toDoReducer/CHANGE_STATUS'
+const SIGN_UP = 'to-do-list/toDoReducer/SIGN_UP'
+const SIGN_IN = 'to-do-list/toDoReducer/SIGN_IN'
+export const LOGOUT = 'to-do-list/toDoReducer/LOGOUT'
 const PENDING = 'to-do-list/toDoReducer/PENDING'
 const ERROR = 'to-do-list/toDoReducer/ERROR'
+const CONTACT_MESSAGE = 'to-do-list/toDoReducer/CONTACT_MESSAGE'
 
 const initalState = {
     tasks: [],
@@ -19,7 +27,8 @@ const initalState = {
     isShowEditTaskFormModal: false,
     loading: false,
     successMessage: null,
-    errorMessage: null
+    errorMessage: null,
+    isAuth: checkLoginStatus()
 }
 
 const toDoReducer = (state = initalState, action) => {
@@ -105,6 +114,35 @@ const toDoReducer = (state = initalState, action) => {
                 tasks: state.tasks.map(task => task._id === action.changedTask._id ? action.changedTask : task)
             }
         }
+        case SIGN_UP: {
+            return {
+                ...state,
+                loading: false,
+                successMessage: 'You are successfully registred'
+            }
+        }
+        case SIGN_IN: {
+            return {
+                ...state,
+                isAuth: true,
+                loading: false,
+                successMessage: 'You are successfully logined'
+            }
+        }
+        case LOGOUT: {
+            return {
+                ...state,
+                isAuth: false,
+                loading: false
+            }
+        }
+        case CONTACT_MESSAGE: {
+            return {
+                ...state,
+                loading: false,
+                successMessage: 'Your message successfully sended'
+            }
+        }
         default: return state
     }
 }
@@ -170,6 +208,7 @@ export const getTasks = (queryParams = {}) => {
         dispatch({ type: PENDING })
         myFetch(`${apiHost}/task?${query}`)
             .then(res => {
+                if (!res) return
                 dispatch(getTaskAction(res))
             })
             .catch(error => {
@@ -182,6 +221,7 @@ export const createTask = (newTask) => {
         dispatch({ type: PENDING })
         myFetch(`${apiHost}/task`, 'POST', newTask)
             .then(res => {
+                if (!res) return
                 dispatch(createTaskAction(res))
             })
             .catch(error => {
@@ -194,6 +234,7 @@ export const deleteTask = (taskId) => {
         dispatch({ type: PENDING })
         myFetch(`${apiHost}/task/${taskId}`, 'DELETE')
             .then(res => {
+                if (!res) return
                 dispatch(deleteTaskAction(taskId))
             })
             .catch(error => {
@@ -206,6 +247,7 @@ export const deleteSelectedTasks = (selectedTasksIds) => {
         dispatch({ type: PENDING })
         myFetch(`${apiHost}/task`, 'PATCH', { tasks: [...selectedTasksIds] })
             .then(res => {
+                if (!res) return
                 dispatch(deleteSelectedTasksAction(selectedTasksIds))
             })
             .catch(error => {
@@ -218,6 +260,7 @@ export const editTask = (editedTask) => {
         dispatch({ type: PENDING })
         myFetch(`${apiHost}/task/${editedTask._id}`, 'PUT', editedTask)
             .then(res => {
+                if (!res) return
                 dispatch(editTaskAction(res))
             })
             .catch(error => {
@@ -232,6 +275,7 @@ export const changeTaskStatus = (taskId, status) => {
         dispatch({ type: PENDING })
         myFetch(`${apiHost}/task/${taskId}`, 'PUT', { status: putStatusProperty })
             .then(res => {
+                if (!res) return
                 dispatch(changeStatus(res))
             })
             .catch(error => {
@@ -240,5 +284,46 @@ export const changeTaskStatus = (taskId, status) => {
     }
 }
 
+export const signUp = (data) => {
+    return dispatch => {
+        dispatch({ type: PENDING })
+        myFetchWithoutToken(`${apiHost}/user`, 'POST', data)
+            .then(res => {
+                dispatch({ type: SIGN_UP })
+                history.push('/sign-in')
+            })
+            .catch(error => {
+                dispatch(errorAction(error.message))
+            })
+    }
+}
+export const signIn = (data) => {
+    return dispatch => {
+        dispatch({ type: PENDING })
+        myFetchWithoutToken(`${apiHost}/user/sign-in`, 'POST', data)
+            .then(res => {
+                localStorage.setItem('token', JSON.stringify(res))
+                dispatch({ type: SIGN_IN })
+                history.push('/')
+            })
+            .catch(error => {
+                dispatch(errorAction(error.message))
+            })
+    }
+}
+
+export const sendMessage = (data, nulledValues) => {
+    return dispatch => {
+        dispatch({ type: PENDING })
+        myFetchWithoutToken(`${apiHost}/formf`, 'POST', data)
+            .then(res => {
+                dispatch({ type: CONTACT_MESSAGE })
+                nulledValues()
+            })
+            .catch(error => {
+                dispatch(errorAction(error.message))
+            })
+    }
+}
 
 export default toDoReducer

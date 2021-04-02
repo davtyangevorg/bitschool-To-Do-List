@@ -9,10 +9,13 @@ const useContactUsForm = (callback, contactUsFormValidate) => {
     useEffect(() => {
         if (Object.keys(errors).length === 0 && isSubmit) {
             callback(values)
-            setValues({ name: '', email: '', message: '' })
         }
         // eslint-disable-next-line
     }, [errors, isSubmit])
+
+    const nulledValues=()=>{
+        setValues({name:'',email:'',message:''})
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault()
@@ -32,7 +35,8 @@ const useContactUsForm = (callback, contactUsFormValidate) => {
         values,
         handleSubmit,
         handleChange,
-        errors
+        errors,
+        nulledValues
     }
 }
 export default useContactUsForm

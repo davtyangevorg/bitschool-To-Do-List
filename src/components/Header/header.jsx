@@ -1,13 +1,15 @@
 import React, { useContext } from 'react'
 
-import {useDispatch} from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 import { NavLink } from 'react-router-dom'
 
 import styles from './header.module.scss'
 import { MdAddCircle } from 'react-icons/all'
 
-import {setIsShowAddTaskFormModalAction} from '../../redux/toDo-reducer.js'
+import { logout } from '../../utils.js'
+
+import { setIsShowAddTaskFormModalAction } from '../../redux/toDo-reducer.js'
 import { SelectedTasksIdsLengthContext, IsShowAddNewTaskButtonContext } from '../../context.js'
 
 const Header = () => {
@@ -15,8 +17,15 @@ const Header = () => {
     const { selectedTasksIdsLength } = useContext(SelectedTasksIdsLengthContext)
     const { isShowAddNewTaskButton } = useContext(IsShowAddNewTaskButtonContext)
 
+    const isAuth = useSelector(state => state.toDoReducer.isAuth)
+
     const dispatch = useDispatch()
-    
+
+    const signOut = (event) => {
+        event.preventDefault()
+        logout()
+    }
+
     return (
         <div className={styles.header}>
             <div className={styles.header_top}>
@@ -32,11 +41,16 @@ const Header = () => {
                 </div>}
             </div>
             <div className={styles.header_manu}>
-                <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/'>Home</NavLink>
+                {isAuth && <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/'>Home</NavLink>}
                 <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/about'>About</NavLink>
                 <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/contact'>Contact</NavLink>
-                <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/sign-up'>Sign Up</NavLink>
-                <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/sign-in'>Sign In</NavLink>
+                {isAuth
+                    ? <NavLink onClick={signOut} exact activeClassName={styles.active} className={styles.navlink} to='/sign-up'>Sign Out</NavLink>
+                    : <>
+                        <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/sign-up'>Sign Up</NavLink>
+                        <NavLink exact activeClassName={styles.active} className={styles.navlink} to='/sign-in'>Sign In</NavLink>
+                    </>
+                }
             </div>
         </div >
     )

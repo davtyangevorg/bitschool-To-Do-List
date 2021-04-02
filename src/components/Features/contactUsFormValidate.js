@@ -1,3 +1,5 @@
+const regexp=/^(([^<>()[\],;:\s@]+(\.[^<>()[\],;:\s@]+)*)|(.+))@(([^<>()[\],;:\s@]+)+[^<>()[\],;:\s@]{2,})$/i
+
 const contactUsFormValidate = (values) => {
     const errors = {}
     if (!values.name) {
@@ -5,7 +7,7 @@ const contactUsFormValidate = (values) => {
     }
     if (!values.email) {
         errors.email = 'Email is required'
-    } else if (!(/^[\w]+@([\w-]+\.)+[\w-]{2,4}$/.test(values.email))) {
+    } else if (!(regexp.test(values.email))) {
         errors.email = 'Email is not correct'
     }
     if (!values.message) {
@@ -15,5 +17,3 @@ const contactUsFormValidate = (values) => {
 }
 
 export default contactUsFormValidate
-
-///^([a-z,A-Z,\d,-]+)@([a-z,\d,-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/

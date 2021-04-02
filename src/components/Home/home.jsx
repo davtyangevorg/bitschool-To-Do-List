@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import style from './home.module.scss'
 
 import { Redirect, Route, Switch } from 'react-router-dom'
+import { useSelector } from 'react-redux'
 
 import Footer from '../Footer/footer.jsx'
 import Header from '../Header/header.jsx'
@@ -32,39 +33,44 @@ const Home = () => {
                     <Header />
                     <div className={style.home_section}>
                         <Switch>
-                            <Route
+                            <AuthRoute
                                 path='/'
                                 component={ToDoSection}
+                                type='private'
                                 exact
                             />
-                            <Route
+                            <AuthRoute
                                 path='/home'
                                 component={ToDoSection}
+                                type='private'
                                 exact
                             />
-                            <Route
+                            <AuthRoute
                                 path='/about'
                                 component={About}
                                 exact
                             />
-                            <Route
+                            <AuthRoute
                                 path='/contact'
                                 component={Contact}
                                 exact
                             />
-                            <Route
+                            <AuthRoute
                                 path='/sign-up'
                                 component={SignUp}
+                                type='public'
                                 exact
                             />
-                            <Route
+                            <AuthRoute
                                 path='/sign-in'
                                 component={SignIn}
+                                type='public'
                                 exact
                             />
-                            <Route
+                            <AuthRoute
                                 path='/task/:taskId'
                                 component={SingleTask}
+                                type='private'
                                 exact
                             />
                             <Route
@@ -85,3 +91,19 @@ const Home = () => {
 }
 
 export default Home
+
+const AuthRoute = ({ path, component: Component, type }) => {
+
+    const isAuth = useSelector(state => state.toDoReducer.isAuth)
+
+    return (
+        <Route
+            path={path}
+            render={props => {
+                if (isAuth && type === 'public') return <Redirect to='/' />
+                if (!isAuth && type === 'private') return <Redirect to='/sign-in' />
+                return <Component {...props}/>
+            }}
+        />
+    )
+}

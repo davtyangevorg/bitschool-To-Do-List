@@ -97,6 +97,7 @@ export const getTask = (taskId) => {
         dispatch({ type: PENDING })
         myFetch(`${apiHost}/task/${taskId}`)
             .then(res => {
+                if(!res) return
                 dispatch(getTaskAction(res))
             })
             .catch(error => {
@@ -109,6 +110,7 @@ export const editTask = (editedTask) => {
         dispatch({ type: PENDING })
         myFetch(`${apiHost}/task/${editedTask._id}`, 'PUT', editedTask)
             .then(res => {
+                if(!res) return
                 dispatch(editTaskAction(res))
             })
             .catch(error => {
@@ -121,6 +123,7 @@ export const deleteSingleTask = (taskId) => {
         dispatch({ type: PENDING })
         myFetch(`${apiHost}/task/${taskId}`, 'DELETE')
             .then(res => {
+                if(!res) return
                 dispatch({ type: DELETE_TASK })
                 history.push('/')
             })
@@ -137,6 +140,7 @@ export const changeTaskStatus = (taskId, status) => {
         dispatch({ type: PENDING })
         myFetch(`${apiHost}/task/${taskId}`, 'PUT', { status: putStatusProperty })
             .then(res => {
+                if(!res) return
                 dispatch(changeStatusAction(res))
             })
             .catch(error => {
