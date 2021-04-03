@@ -48,17 +48,18 @@ const SingleTask = (props) => {
                     {
                         task ?
                             <div className={styles.task}>
-                                <h3>{task.title}</h3>
+                                <h3 className={styles.task_title}>{task.title}</h3>
                                 <div className={styles.task_descriprion}>{task.description}</div>
                                 <div className={styles.task_footer}>
                                     <div>Date: {task.date.slice(0, 10)}</div>
-                                    <p>Created : {task.created_at.slice(0, 10)}</p>
+                                    <p style={{margin:'0 10px'}}>Created : {task.created_at.slice(0, 10)}</p>
+                                    <p>Status : {task.status}</p>
                                     <div>
                                         <button
                                             className={styles.statusBtn}
                                             onClick={() => changeStatus(task._id, task.status)}
                                         >
-                                            {task.status}
+                                            {task.status === 'active' ? 'done' : 'active'}
                                         </button>
                                         <button
                                             className={styles.task_editBtn}

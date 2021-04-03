@@ -3,13 +3,18 @@
 .footer{
     border-top: 1px solid $fadedLineColor;
     background-color: white;
-    position: absolute;
-    width: 100%;
-    left: 0;
-    bottom: 0;
-    padding:0 50px 0 200px;
+    grid-area: footer;
+    padding:10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    .comp{
+        @include standartFadedText;
+        font-size: 14px;
+        margin-left: 20px;
+    }
     .textDiv{
-        padding-top: 3px;
         display: flex;
         flex-direction: column;
         text-align: right;

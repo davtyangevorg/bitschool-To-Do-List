@@ -13,7 +13,7 @@ import { ListOrGridSwitchContext, IsShowAddNewTaskButtonContext } from '../../..
 
 const ToDoSection = () => {
 
-    const [switchName, setSwitchName] = useState('list')
+    const [switchName, setSwitchName] = useState('grid')
     const [isActiceListBtn, setIsActiveListBtn] = useState(true)
     const [isActiceGridBtn, setIsActiveGridBtn] = useState(false)
 
@@ -27,12 +27,12 @@ const ToDoSection = () => {
     }, [setIsShowAddNewTaskButton])
 
     const handleActive = (type) => {
-        if (type === 'list') {
-            setSwitchName('list')
+        if (type === 'grid') {
+            setSwitchName('grid')
             setIsActiveListBtn(true)
             setIsActiveGridBtn(false)
         } else {
-            setSwitchName('grid')
+            setSwitchName('list')
             setIsActiveGridBtn(true)
             setIsActiveListBtn(false)
         }
@@ -42,20 +42,20 @@ const ToDoSection = () => {
         <>
             <Container fluid style={{ padding: '25px 45px' }}>
                 <Row style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '30px' }}>
-                    <div className={styles.tasksStylesBtns}>
-                        <div
-                            className={styles.btnDiv}
-                            onClick={() => { handleActive('list') }}
-                        >
-                            <FaListUl className={isActiceListBtn && styles.svgActive} />
-                            <button className={`${styles.listBtn} ${isActiceListBtn && styles.buttonActive}`}>List</button>
-                        </div>
+                    <div className={styles.tasksStylesBtns}style={{marginRight:'100px'}}>
                         <div
                             className={styles.btnDiv}
                             onClick={() => { handleActive('grid') }}
                         >
+                            <FaListUl className={isActiceListBtn && styles.svgActive} />
+                            <button className={`${styles.listBtn} ${isActiceListBtn && styles.buttonActive}`}>Grid</button>
+                        </div>
+                        <div
+                            className={styles.btnDiv}
+                            onClick={() => { handleActive('list') }}
+                        >
                             <IoGrid className={isActiceGridBtn && styles.svgActive} />
-                            <button className={`${styles.gridBtn} ${isActiceGridBtn && styles.buttonActive}`}>Grid</button>
+                            <button className={`${styles.gridBtn} ${isActiceGridBtn && styles.buttonActive}`}>List</button>
                         </div>
                     </div>
                     <SearchFilterAndSortButtons />

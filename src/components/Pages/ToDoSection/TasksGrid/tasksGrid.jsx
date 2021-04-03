@@ -19,12 +19,12 @@ const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTa
 
     const dispatch = useDispatch()
 
-    const changeStatus=(taskId,status)=>{
-        dispatch(changeTaskStatus(taskId,status))
+    const changeStatus = (taskId, status) => {
+        dispatch(changeTaskStatus(taskId, status))
     }
 
     return (
-        <Row style={{ overflowY: 'scroll', height: '700px' }}>
+        <Row style={{ overflowY: 'scroll', height: '630px' }}>
             {tasks.map(el => {
                 return <Col key={el._id} md={6} lg={4} xl={3} >
                     <div className={styles.task} >
@@ -34,13 +34,13 @@ const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTa
                         />
                         <h4>
                             <Link to={`/task/${el._id}`}>
-                                {el.title}
+                                {textTruncate(el.title, 10)}
                             </Link>
                         </h4>
                         <p>{textTruncate(el.description, 20)}</p>
                         <p>{el.date.slice(0, 10)}</p>
                         <p>Created : {el.created_at.slice(0, 10)}</p>
-                        <p>Status : {el.status}</p>
+                        <p>Status : {el.status === 'active' ? 'done' : 'active'}</p>
                         <button
                             onClick={() => { getTaskForEdit(el) }}
                             className={styles.task_editBtn}

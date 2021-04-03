@@ -3,14 +3,25 @@
 
 .header{
     background-color: white;
+    grid-area: header;
     .header_top{
-        padding: 10px 45px;
+        padding: 10px 20px;
         display: flex;
         justify-content: space-between;
-        flex-wrap: wrap;
         align-items: center;
-        .header_top_left{
-            
+        .logo{
+            cursor: pointer;
+            height: 50px;
+        }
+        .header_top_rigth{
+            display: flex;
+            align-items: center;
+            span{
+                @include standartText;
+                font-size: 18px;
+                margin: 0 20px;
+
+            }
         }
         .addTaskBtn{
             position: relative;
@@ -46,13 +57,13 @@
         border-bottom: 1px solid $fadedLineColor;
         border-top: 1px solid $fadedLineColor;
         display: flex;
+        justify-content: space-between;
         .navlink{
             position: relative;
             @include standartFadedText;
-            padding: 0 10px;
+            padding: 12px 10px;
             margin-right: 10px;
             line-height:37px;
-            height: 100%;
             text-decoration: none;
             transition: all .2s;
             &::after{
@@ -78,6 +89,32 @@
             color: $greenButtonBackgroundColor;
             &::after{
                 transform: scale(1);
+            }
+        }
+    }
+}
+
+@media screen and (max-width:700px){
+    .header{
+        .header_top{
+            display: flex;
+            flex-direction: column;
+            .logo{
+                margin-bottom: 20px;
+            }
+        }
+    }
+}
+@media screen and (max-width:450px){
+    .header{
+        .header_top{
+            .header_top_rigth{
+                display: flex;
+                align-items: center;
+                flex-direction: column;
+                span{
+                    margin-bottom: 20px;
+                }
             }
         }
     }

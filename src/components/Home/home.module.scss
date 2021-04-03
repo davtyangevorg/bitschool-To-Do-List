@@ -4,9 +4,14 @@
     background-color: $homeBackgroundColor;
     width: 100%;
     position: relative;
+    min-height: 100vh;
+    display: grid;
+    grid-template-rows: auto 1fr  auto;
+    grid-template-areas: "header"
+                         "section"
+                         "footer";
     .home_section{
-        overflow:hidden;
-        height: 800px;
-        max-height: 80%;
+        grid-area: section;
+        padding: 0 20px;
     }
 }

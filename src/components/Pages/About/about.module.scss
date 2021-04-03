@@ -1,0 +1,9 @@
+@import '../../../styles/mixins';
+@import '../../../styles/variables';
+
+.about{
+    @include standartFadedText;
+        font-size: 18px;
+        text-align: center;
+        margin-top: 50px;
+}

@@ -2,29 +2,30 @@ import React from 'react'
 
 import PropTypes from 'prop-types'
 
-import {textTruncate} from '../../../../utils.js'
+import {Link} from 'react-router-dom'
+
+import { textTruncate } from '../../../../utils.js'
 
 import styles from './tasksList.module.scss'
 import { Row, Col } from 'react-bootstrap'
 
 
-const TasksList = ({ tasks, deleteTask }) => {
-
+const TasksList = ({ tasks }) => {
     return (
         <Row >
             <Col sm={12}>
                 <div className={styles.tasks_title}>
                     <span>Title</span>
-                    <span>Description</span>
+                    <span className={styles.descriptionTitle}>Description</span>
                 </div>
             </Col>
-            <div style={{width:'100%',overflowY:'scroll',height:'700px'}}>
+            <div style={{ width: '100%', overflowY: 'scroll', height: '620px' }}>
                 {
                     tasks.map(el => {
                         return (<Col sm={12} key={el._id}>
                             <div className={styles.task}>
-                                <span>{el.title}</span>
-                                <span>{textTruncate(el.description, 20)}</span>
+                                <Link to={`/task/${el._id}`}>{textTruncate(el.title, 10)}</Link>
+                                <span className={styles.descriptionText}>{textTruncate(el.description, 20)}</span>
                             </div>
                         </Col>)
                     })

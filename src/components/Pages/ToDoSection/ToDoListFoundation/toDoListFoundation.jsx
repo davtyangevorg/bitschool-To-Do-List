@@ -95,6 +95,7 @@ class ToDoList extends PureComponent {
                                 <button
                                     onClick={this.togleConfirm}
                                     className={styles.deleteTasksBtn}
+                                    style={{marginBottom:'20px'}}
                                 >
                                     Delete Selected Tasks
                             </button>
@@ -109,8 +110,6 @@ class ToDoList extends PureComponent {
                     togleSelectTask={this.togleSelectTask}
                     getTaskForEdit={this.getTaskForEdit}
                 />
-
-
                 <IsDeleteSelectedTasksConfirm
                     closeConfirm={this.togleConfirm}
                     deleteConfirm={this.deleteSelectedTasks}

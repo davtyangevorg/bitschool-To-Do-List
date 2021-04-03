@@ -18,7 +18,24 @@
     border: 1px solid #dfdede;
     border-radius: 5px;
     padding: 20px 50px;
+    a{
+        @include standartText ;
+        text-decoration: none;
+    }
     span{
         @include standartText
+    }
+}
+
+@media screen and (max-width:600px){
+    .tasks_title{
+        .descriptionTitle{
+            display: none;
+        }
+    }
+    .task{
+        .descriptionText{
+            display: none;
+        }
     }
 }

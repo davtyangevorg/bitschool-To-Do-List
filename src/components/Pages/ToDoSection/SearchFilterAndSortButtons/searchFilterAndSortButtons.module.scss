@@ -1,6 +1,9 @@
 @import '../../../../styles/variables';
 @import '../../../../styles/mixins';
 
+.burger{
+    cursor: pointer;
+}
 .headerLeft{
     height: 40px;
     display: flex;
@@ -13,5 +16,38 @@
         &:hover{
             background-color: $greenButtonHoverBackgroundColor;
         }
+    }
+}
+.cross{
+    cursor: pointer;
+    margin: 0 auto 15px;
+}
+.wrapper{
+    background-color: rgba(0, 0, 0, 0.442);
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top:0;
+    z-index: 10;
+}
+.showFilter{
+    transform: translateY(0) !important;
+}
+
+@media screen and (max-width:1400px){
+    .headerLeft{
+        z-index: 10;
+        background-color: #FAFAFA;
+        position: absolute;
+        top: 0;
+        right: 0;
+        height: 100vh;
+        width: 320px;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        transform: translateY(-100%);
+        transition: all .3s;
     }
 }

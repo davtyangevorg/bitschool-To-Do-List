@@ -19,3 +19,10 @@
         transform: translate(-50%,-50%);
     }
 }
+@media screen and (max-width:1400px){
+    .date{
+        height: 40px;
+        width: 100%;
+        margin-bottom: 15px;
+    }
+}

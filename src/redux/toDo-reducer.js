@@ -20,6 +20,7 @@ export const LOGOUT = 'to-do-list/toDoReducer/LOGOUT'
 const PENDING = 'to-do-list/toDoReducer/PENDING'
 const ERROR = 'to-do-list/toDoReducer/ERROR'
 const CONTACT_MESSAGE = 'to-do-list/toDoReducer/CONTACT_MESSAGE'
+const GET_USER_INFO='to-do-list/toDoReducer/GET_USER_INFO'
 
 const initalState = {
     tasks: [],
@@ -28,7 +29,8 @@ const initalState = {
     loading: false,
     successMessage: null,
     errorMessage: null,
-    isAuth: checkLoginStatus()
+    isAuth: checkLoginStatus(),
+    userInfo:null
 }
 
 const toDoReducer = (state = initalState, action) => {
@@ -141,6 +143,13 @@ const toDoReducer = (state = initalState, action) => {
                 ...state,
                 loading: false,
                 successMessage: 'Your message successfully sended'
+            }
+        }
+        case GET_USER_INFO: {
+            return {
+                ...state,
+                loading: false,
+                userInfo:action.info
             }
         }
         default: return state
@@ -319,6 +328,18 @@ export const sendMessage = (data, nulledValues) => {
             .then(res => {
                 dispatch({ type: CONTACT_MESSAGE })
                 nulledValues()
+            })
+            .catch(error => {
+                dispatch(errorAction(error.message))
+            })
+    }
+}
+export const getUserInfo = () => {
+    return dispatch => {
+        dispatch({ type: PENDING })
+        myFetch(`${apiHost}/user`)
+            .then(res => {
+                dispatch({ type: GET_USER_INFO,info:res })
             })
             .catch(error => {
                 dispatch(errorAction(error.message))

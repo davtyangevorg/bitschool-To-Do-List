@@ -5,22 +5,26 @@
     background-color: white;
     border-radius: 10px;
     margin-top: 30px;
+    margin-bottom: 30px;
     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.07);
     padding: 20px;
     text-align: center;
+    .task_title{
+        word-break: break-all
+    }
     .task_descriprion{
         @include standartFadedText;
         font-size: 18px;
         margin-bottom: 20px;
         max-height: 500px;
         overflow-y: scroll;
+        word-break: break-all
     }
     .task_footer{
         display: flex;
         justify-content: space-between;
+        flex-wrap: wrap;
         .statusBtn{
-            // position: absolute;
-            // bottom: 15px;
             padding: 8px;
             @include buttonFunction ($bColor:#FC7150,$color:white,$border:0,$borderRadius:5px);
             @include standartText;
