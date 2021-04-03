@@ -40,7 +40,7 @@ const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTa
                         <p>{textTruncate(el.description, 20)}</p>
                         <p>{el.date.slice(0, 10)}</p>
                         <p>Created : {el.created_at.slice(0, 10)}</p>
-                        <p>Status : {el.status === 'active' ? 'done' : 'active'}</p>
+                        <p>Status : {el.status}</p>
                         <button
                             onClick={() => { getTaskForEdit(el) }}
                             className={styles.task_editBtn}
@@ -59,7 +59,7 @@ const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTa
                             className={styles.statusBtn}
                             onClick={() => changeStatus(el._id, el.status)}
                         >
-                            {el.status}
+                            {el.status === 'active' ? 'done' : 'active'}
                         </button>
                     </div>
                 </Col>
