@@ -105,13 +105,14 @@ export const getTask = (taskId) => {
             })
     }
 }
-export const editTask = (editedTask) => {
+export const editTask = (editedTask,togleIsShowEditTaskForm) => {
     return dispatch => {
         dispatch({ type: PENDING })
         myFetch(`${apiHost}/task/${editedTask._id}`, 'PUT', editedTask)
             .then(res => {
                 if(!res) return
                 dispatch(editTaskAction(res))
+                togleIsShowEditTaskForm()
             })
             .catch(error => {
                 dispatch(errorAction(error.message))

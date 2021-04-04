@@ -22,7 +22,7 @@ const SignIn = () => {
 
     return (
         <div  className={styles.signIn_box}>
-            <h4>Sign Up</h4>
+            <h4>Sign In</h4>
             <form onSubmit={handleSubmit} className={styles.form}> 
                 <div className={styles.input_wrap}>
                     <label htmlFor="email">Email</label>

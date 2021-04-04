@@ -33,8 +33,7 @@ const SingleTask = (props) => {
         setIsShowEditeTaskForm(!isShowEditeTaskForm)
     }
     const editeTask = (editedTask) => {
-        dispatch(editTask(editedTask))
-        togleIsShowEditTaskForm()
+        dispatch(editTask(editedTask,togleIsShowEditTaskForm))
     }
 
     const changeStatus=(taskId,status)=>{

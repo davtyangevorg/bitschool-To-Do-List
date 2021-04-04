@@ -16,9 +16,13 @@ const signUpFormValidate = (values) => {
     }
     if (!values.password) {
         errors.password = 'Password is required'
+    }else if (values.password.length<6){
+        errors.password='You have to enter at least 6 digits!'
     }
     if (!values.confirmPassword) {
         errors.confirmPassword = 'Confirm Password  is required'
+    }else if (values.confirmPassword.length<6){
+        errors.confirmPassword='You have to enter at least 6 digits!'
     }
     return errors
 }

@@ -17,10 +17,11 @@ const DateRange = memo(({ startDate, setStartDate, endDate, setEndDate,title }) 
     }
 
     const DateCustomInput = React.forwardRef((props, ref) => {
-
         return (
             <div className={styles.date} onClick={props.onClick} ref={ref}>
-                <span>{title} Date</span>
+                <span style={{marginRight:'10px'}}>{title} Date</span>
+                <span>{props.startDate && props.startDate.toISOString().slice(0, 10)}</span>
+                <span>{props.endDate && ' - ' + props.endDate.toISOString().slice(0, 10)}</span>
             </div>
         )
 
@@ -32,8 +33,9 @@ const DateRange = memo(({ startDate, setStartDate, endDate, setEndDate,title }) 
             onChange={onChange}
             startDate={startDate}
             endDate={endDate}
-            customInput={<DateCustomInput ref={ref} />}
+            customInput={<DateCustomInput ref={ref} startDate={startDate} endDate={endDate} />}
             selectsRange
+            dateFormat="MMMM d, yyyy"
         />
     );
 })

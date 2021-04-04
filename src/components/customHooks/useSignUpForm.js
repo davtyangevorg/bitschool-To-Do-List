@@ -8,7 +8,6 @@ const useLoginForm = (callback, loginValidate) => {
     useEffect(() => {
         if (Object.keys(errors).length === 0 && isSubmit) {
             callback(values)
-            setValues({ name: '', surname: '', email: '', password: '', confirmPassword: '' })
         }
         // eslint-disable-next-line
     }, [errors])

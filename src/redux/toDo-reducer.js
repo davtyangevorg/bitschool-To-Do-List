@@ -127,8 +127,7 @@ const toDoReducer = (state = initalState, action) => {
             return {
                 ...state,
                 isAuth: true,
-                loading: false,
-                successMessage: 'You are successfully logined'
+                loading: false
             }
         }
         case LOGOUT: {
@@ -324,7 +323,7 @@ export const signIn = (data) => {
 export const sendMessage = (data, nulledValues) => {
     return dispatch => {
         dispatch({ type: PENDING })
-        myFetchWithoutToken(`${apiHost}/formf`, 'POST', data)
+        myFetchWithoutToken(`${apiHost}/form`, 'POST', data)
             .then(res => {
                 dispatch({ type: CONTACT_MESSAGE })
                 nulledValues()
