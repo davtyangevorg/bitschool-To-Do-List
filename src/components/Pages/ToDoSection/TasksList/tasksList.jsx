@@ -19,7 +19,7 @@ const TasksList = ({ tasks }) => {
                     <span className={styles.descriptionTitle}>Description</span>
                 </div>
             </Col>
-            <div style={{ width: '100%', overflowY: 'scroll', height: '620px' }}>
+            <div style={{ width: '100%', overflowY: 'auto', height: '620px' }}>
                 {
                     tasks.map(el => {
                         return (<Col sm={12} key={el._id}>

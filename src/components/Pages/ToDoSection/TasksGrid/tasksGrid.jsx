@@ -24,7 +24,7 @@ const TasksGrid = ({ tasks, selectedTasksIds, deleteTask, togleSelectTask, getTa
     }
 
     return (
-        <Row style={{ overflowY: 'scroll', height: '630px' }}>
+        <Row style={{ overflowY: 'auto', height: '630px' }}>
             {tasks.map(el => {
                 return <Col key={el._id} md={6} lg={4} xl={3} >
                     <div className={styles.task} >
